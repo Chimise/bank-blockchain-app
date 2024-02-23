@@ -1,0 +1,17 @@
+#hero-section {
+    background-image: url("/assets/images/hero-image1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 600px;
+    animation: zoomAnimation 10s infinite alternate;
+}
+
+@keyframes zoomAnimation {
+    0% {
+        background-size: 100% 100%;
+    }
+    100% {
+        background-size: 120% 120%;
+    }
+}
