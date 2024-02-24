@@ -14,12 +14,12 @@
             </div>
             <div class="w-2/6 bg-white p-8" style="border-radius: 5px;">
                 <h2 class="sign-in-text">Sign in with your account details</h2>
-                <form>
+                <form (ngSubmit)="onSubmit()">
                     <div style="padding-top: 30px;">
-                        <input type="text" id="username" placeholder="Username" class="log-in-fields">
+                        <input type="text" id="username" placeholder="Username" class="log-in-fields" [(ngModel)]="username">
                     </div>
                     <div style="padding-bottom: 20px;">
-                        <input type="password" id="password" placeholder="Password" class="log-in-fields">
+                        <input type="password" id="password" placeholder="Password" class="log-in-fields" [(ngModel)]="password">
                     </div>
                     <button type="submit"
                         class="login-btn">SIGN
@@ -40,4 +40,4 @@
         </div>
 
     </footer>
-</div>
+</div>`
