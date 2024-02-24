@@ -8,4 +8,4 @@ if [ ! -f "install-fabric.sh" ]; then
 fi
 
 # Execute the script with necessary arguments
-./install-fabric.sh "binary"
+./install-fabric.sh "binary" "docker"
