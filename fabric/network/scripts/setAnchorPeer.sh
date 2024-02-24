@@ -13,21 +13,21 @@
 # NOTE: this must be run in a CLI container since it requires jq and configtxlator 
 createAnchorPeerUpdate() {
   infoln "Fetching channel config for channel $CHANNEL_NAME"
-  fetchChannelConfig $ORG $CHANNEL_NAME ${CORE_PEER_LOCALMSPID}config.json
+  fetchChannelConfig $PEER $CHANNEL_NAME ${CORE_PEER_LOCALMSPID}config.json
 
-  infoln "Generating anchor peer update transaction for Org${ORG} on channel $CHANNEL_NAME"
+  infoln "Generating anchor peer update transaction for Org1 on channel $CHANNEL_NAME"
 
-  if [ $ORG -eq 1 ]; then
+  if [ $PEER -eq 0 ]; then
     HOST="peer0.org1.example.com"
     PORT=7051
-  elif [ $ORG -eq 2 ]; then
-    HOST="peer0.org2.example.com"
+  elif [ $PEER -eq 1 ]; then
+    HOST="peer1.org1.example.com"
     PORT=9051
-  elif [ $ORG -eq 3 ]; then
-    HOST="peer0.org3.example.com"
-    PORT=11051
+  elif [ $PEER -eq 2 ]; then
+    HOST="peer2.org1.example.com"
+    PORT=9061
   else
-    errorln "Org${ORG} unknown"
+    errorln "Peer is unknown"
   fi
 
   set -x
@@ -49,10 +49,10 @@ updateAnchorPeer() {
   successln "Anchor peer set for org '$CORE_PEER_LOCALMSPID' on channel '$CHANNEL_NAME'"
 }
 
-ORG=$1
+PEER=$1
 CHANNEL_NAME=$2
 
-setGlobalsCLI $ORG
+setGlobalsCLI $PEER
 
 createAnchorPeerUpdate 
 
