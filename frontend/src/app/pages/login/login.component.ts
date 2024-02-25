@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ export class LoginComponent implements OnInit {
   password!: string;
   errorMessage!: string;
 
-  constructor(private authService: AuthService, private router: Router, private httpClient: HttpClient) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     // Clear any existing error messages
@@ -31,7 +30,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', data.token);
 
           // Redirect to protected route
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         },
         (error: { message: string; }) => {
           this.errorMessage = error.message; // Handle error message appropriately

@@ -18,7 +18,7 @@ export const routes: Routes = [
     },
     {
         component: NotfoundComponent,
-        path: "404"
+        path: "**"
     }
 ];
 
