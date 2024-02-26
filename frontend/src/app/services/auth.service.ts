@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('/api/login', { username, password })
+    return this.http.post<LoginResponse>('/authenticate', { username, password })
       .pipe(
         catchError((err) => {
           console.error(err);
