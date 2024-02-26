@@ -3,6 +3,8 @@ package com.firstacademy.controllers;
 import com.firstacademy.entity.User;
 import com.firstacademy.repository.UserRepository;
 import com.firstacademy.security.JwtUtil;
+import com.firstacademy.model.AuthenticationRequest;
+import com.firstacademy.model.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
