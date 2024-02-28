@@ -9,9 +9,14 @@ services:
       - my-network
     environment:
       MYSQL_ROOT_PASSWORD: password$123
-      MYSQL_DATABASE: banking-app
+      MYSQL_DATABASE: bankingapp
       MYSQL_USER: bankingapp
       MYSQL_PASSWORD: password$user1
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      start_period: 5s
+      timeout: 5s
+      retries: 55
     ports:
       - "3308:3306"
 
@@ -28,12 +33,15 @@ services:
     environment:
       - MYSQL_HOST=mysql
       - MYSQL_PORT=3306
-      - MYSQL_DATABASE=banking-app
+      - MYSQL_DATABASE=bankingapp
       - MYSQL_USER=bankingapp
       - MYSQL_PASSWORD=password$user1
       - SHOW_SQL=true
+    volumes:
+      - ./backend/src:/app/src
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
   frontend:
     build:
