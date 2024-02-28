@@ -1,7 +1,5 @@
 package com.firstacademy.controllers;
 
-import com.firstacademy.entity.User;
-import com.firstacademy.repository.UserRepository;
 import com.firstacademy.security.JwtUtil;
 import com.firstacademy.model.AuthenticationRequest;
 import com.firstacademy.model.AuthenticationResponse;
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,12 +20,6 @@ public class AuthenticationController {
     @Autowired
     private JwtUtil jwtUtil;
     
-    @Autowired
-    private UserRepository userRepository;
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());

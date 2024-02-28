@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.apache.logging.log4j.util.Supplier;
+
 @Entity
 public class User {
     @Id
@@ -15,9 +17,6 @@ public class User {
     private String password;
     
     // Constructors
-
-    public User() {
-    }
 
     public User(String username, String password) {
         this.username = username;
@@ -49,4 +48,11 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public User orElseThrow(Supplier<? extends RuntimeException> exceptionSupplier) {
+    // Assuming this is a placeholder method within a class that mimics Optional behavior,
+    // you should implement the logic to either return the User or throw the exception provided by the supplier.
+    throw exceptionSupplier.get();
+}
+
 }
