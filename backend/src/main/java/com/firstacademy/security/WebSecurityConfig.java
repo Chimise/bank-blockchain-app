@@ -42,7 +42,7 @@ public class WebSecurityConfig {
     @SuppressWarnings({ "removal", "deprecation" })
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf().disable().cors().and()
                 .authorizeRequests().requestMatchers("/authenticate", "/register").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
