@@ -34,7 +34,7 @@
     </app-container>
     
     <!-- Mobile view menu-->
-    <div [hidden]="isOpen" class="md:hidden bg-blue-900">
+    <div [hidden]="!isOpen" class="md:hidden bg-blue-900">
         <div id="menu" class="flex flex-col space-y-5 mx-9 text-white py-5">
             <app-navlink href="/">
                 Home
