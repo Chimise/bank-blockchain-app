@@ -50,11 +50,7 @@ header, footer {
     margin-bottom: 20px;
 }
 
-:host {
-    display: block;
-    min-height: fit-content;
-    min-width: fit-content;
-    margin: 0;
-    padding: 0;
-  }
-  
+.logo {
+    width: 10%;
+    height: auto;
+}
