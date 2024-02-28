@@ -30,6 +30,3 @@
     animation: marquee 30s linear infinite, blink 1s linear infinite; /* Adjust the duration (10s) as needed */
   }
   
-  body {
-    overflow: hidden;
-  }
