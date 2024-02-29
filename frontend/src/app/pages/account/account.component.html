@@ -2,24 +2,24 @@
 <div class="flex justify-center items-center h-screen bg-gray-100">
 
     <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form class="space-y-6" action="#">
+        <form  class="space-y-6" action="#" [formGroup]="sendMoneyForm" (ngSubmit)="onSubmit()">
             <h5 class="text-xl font-medium text-blue-500 dark:text-white text-center mb-4">Send Money</h5>
             <div>
                 <label for="Receiveing_bank" class="block mb-2 text-sm font-medium text-blue-500 dark:text-white">Enter Receiving Bank</label>
-                <input type="text" name="Receiveing_bank" id="Receiveing_bank" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Ample Bank" required />
+                <input type="text" formControlName="receivingBank" name="Receiveing_bank" id="Receiveing_bank" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Ample Bank" required />
             </div>
     
             <div>
                 <label for="Beneficiary_bank" class="block mb-2 text-sm font-medium text-blue-500 dark:text-white">Enter Receiving Bank</label>
-                <input type="text" name="Beneficiary_bank" id="Beneficiary_bank" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="0820846526" required />
+                <input type="text" formControlName="beneficiaryBank" name="Beneficiary_bank" id="Beneficiary_bank" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="0820846526" required />
             </div>
     
             <div>
                 <label for="Amount" class="block mb-2 text-sm font-medium text-blue-500 dark:text-white">Enter Amount</label>
-                <input type="number" name="Amount" id="Amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="#30000" required />
+                <input type="number" formControlName="amount" name="Amount" id="Amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="#30000" required />
             </div>
     
-            <button type="submit" class="w-full text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send</button>
+            <button type="submit"  [disabled]="!sendMoneyForm.valid" class="w-full text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send</button>
     
         </form>
     </div>
