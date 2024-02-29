@@ -1,0 +1,31 @@
+.footer {
+  background-image: url("/assets/images/footer.svg");
+  background-color: #003b65;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left;
+  padding: 10px;
+  margin: auto;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.footer-section {
+  display: flex;
+  align-items: center;
+}
+
+.footer-year {
+  margin-left: 10px;
+  color: #fff;
+}
+
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+}
