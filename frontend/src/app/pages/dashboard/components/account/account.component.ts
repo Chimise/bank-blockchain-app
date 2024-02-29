@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { AccountHeaderComponent } from '../account-header/account-header.component';
 import { AccountInfoCardComponent } from '../account-info-card/account-info-card.component';
+import { SendMoneyComponent } from '../send-money/send-money.component';
+import { TransactionHistoryComponent } from '../transaction-history/transaction-history.component';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [AccountHeaderComponent, AccountInfoCardComponent],
+  imports: [AccountHeaderComponent, AccountInfoCardComponent, SendMoneyComponent, TransactionHistoryComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })

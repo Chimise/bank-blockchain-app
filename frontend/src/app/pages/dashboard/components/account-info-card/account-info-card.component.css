@@ -14,11 +14,22 @@
   
   .icon {
     border-radius: 50%;
-    border: 2px solid gray;
+    border: 0.5px solid gray;
     padding: 0.5rem;
+    margin: 7px;
   }
   
   .content h4, .content p {
     margin: 0;
   }
+
+  p {
+    font-weight: 500;
+    font-size: small;
+    color: gray;
+  }
   
+  h4 {
+    font-weight: bold;
+    font-size: larger;
+  }

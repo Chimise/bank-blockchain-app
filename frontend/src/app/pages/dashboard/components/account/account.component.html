@@ -1,8 +1,10 @@
-<div class="mx-auto px-4 py-4 sm:px-8 lg:container">
+<div class="account mx-auto px-4 py-4 sm:px-8 lg:container">
     <app-account-header></app-account-header>
     <div class="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4">
         @for(data of info; track data.id) {
             <app-account-info-card [title]="data.title" [description]="data.description" [src]="data.src"></app-account-info-card>
     }
     </div>
+    <app-send-money></app-send-money>
+    <app-transaction-history></app-transaction-history>
 </div>
