@@ -6,6 +6,12 @@
     padding: 2rem 4rem 2rem 4rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin: 2rem;
+    border: 2px solid transparent
+  }
+
+  .payment-card:hover {
+    border-color: rgba(208,18,45,1);
+    box-shadow: 0 0 15px 5px rgba(248, 192, 186, 1);
   }
   
 

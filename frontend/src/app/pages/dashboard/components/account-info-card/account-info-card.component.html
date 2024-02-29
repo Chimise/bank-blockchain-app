@@ -1,11 +1,11 @@
 <!-- card.component.html -->
-<div class="card">
-    <div class="icon">
-        <img class='icon-img' [src]="src" alt="icon">
-    </div>
-    <div class="content">
-      <p>{{ title }}</p>
-      <h4>{{ description }}</h4>
-    </div>
+<div class="card" [ngStyle]="{'--hover-border-color': hoverBorderColor, '--hover-shadow-color': hoverShadowColor}"
+  [style.--svg-bg-color]="svgBgColor" (mouseover)="hover = true" (mouseleave)="hover = false">
+  <div class="icon" [style.background-color]="svgBgColor">
+    <img class='icon-img' [src]="src" alt="icon">
   </div>
-  
+  <div class="content">
+    <p>{{ title }}</p>
+    <h4>{{ description }}</h4>
+  </div>
+</div>

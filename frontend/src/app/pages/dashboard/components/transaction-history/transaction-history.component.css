@@ -1,0 +1,16 @@
+.recent-transactions h2 {
+    margin-bottom: 16px;
+  }
+  
+  .recent-transactions table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .recent-transactions td, .recent-transactions th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  /* Further styling as needed */
+  
