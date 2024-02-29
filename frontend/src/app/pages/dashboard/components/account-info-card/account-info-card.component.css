@@ -1,0 +1,24 @@
+/* card.component.css */
+.card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .icon {
+    padding-right: 1rem;
+  }
+  
+  .icon {
+    border-radius: 50%;
+    border: 2px solid gray;
+    padding: 0.5rem;
+  }
+  
+  .content h4, .content p {
+    margin: 0;
+  }
+  
