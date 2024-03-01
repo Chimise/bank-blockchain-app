@@ -23,7 +23,5 @@ public class SecurityConfig {
                 .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
                 .setSourceNamingConvention(NamingConventions.JAVABEANS_MUTATOR);
         return modelMapper;
-
     }
-
 }
