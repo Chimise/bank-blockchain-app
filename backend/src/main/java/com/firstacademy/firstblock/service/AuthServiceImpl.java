@@ -29,9 +29,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Authentication authenticate(UserDto userDto) throws AuthenticationException {
-        Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(userDto.getEmail(),
-                userDto.getPassword());
+    public Authentication authenticate(String email, String password) throws AuthenticationException {
+        Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(email,
+                password);
         Authentication authenticationResponse = authenticationManager.authenticate(authenticationRequest);
 
         return authenticationResponse;
