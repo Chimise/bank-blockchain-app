@@ -1,52 +1,167 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Reset button styles */
+button {
+  background: none;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+}
 
-/* Hamburger Menu */
-.hamburger {
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-    margin-left: auto;
-    transition: all 0.25s;
+/* Skew and un-skew transformations */
+.skew {
+  transform: skew(-20deg);
+}
+
+.un-skew {
+  transform: skew(20deg);
+}
+
+/* Navbar styles */
+#nav {
+  background-color: #003b65;
+  display: flex;
+  flex-direction: column;
+  font-family: "Saira Semi Condensed", sans-serif;
+  height: 4em;
+  overflow: hidden;
+}
+
+.nav {
+  display: flex;
+  height: 4em;
+  line-height: 4em;
+  flex-grow: 2;
+}
+
+.nav-link,
+.logo {
+  padding: 0 1em;
+}
+
+/* Gradient background for logo */
+span.gradient {
+  background: #fffd;
+  background: -webkit-linear-gradient(45deg, #fffd, #fffd);
+  background: linear-gradient(65deg, #fffd, #fffd);
+  padding: 0 1em;
+  position: relative;
+  right: 1em;
+  margin-right: auto;
+}
+
+/* Logo styles */
+h1.logo {
+  font-size: 1.75em;
+  line-height: 0.75em;
+  width: 200px;
+  height: 60px;
+  margin-top: 8px;
+}
+
+/* Nav link styles */
+.nav-link {
+  text-transform: uppercase;
+  text-align: center;
+  border-top: 0.5px solid #ddd;
+}
+
+/* Link styles */
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+  color: #f0bd2d;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Media queries for responsiveness */
+@media (min-width: 900px) {
+  #nav-wrapper {
+    overflow: hidden;
+  }
+
+  #nav {
+    overflow: hidden;
+    flex-direction: row;
+  }
+
+  .nav-link {
+    border-top: none;
+  }
+
+  .right {
+    overflow: hidden;
+    flex-direction: row;
+    justify-content: flex-end;
     position: relative;
+    left: 1.5em;
+    height: auto;
   }
-  
-  .hamburger-top,
-  .hamburger-middle,
-  .hamburger-bottom {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 24px;
-    height: 2px;
-    background: #000;
-    transform: rotate(0);
-    transition: all 0.5s;
-  }
-  
-  .hamburger-middle {
-    transform: translateY(7px);
-  }
-  
-  .hamburger-bottom {
-    transform: translateY(14px);
-  }
-  
-  .open {
-    transform: rotate(90deg);
-    transform: translateY(0px);
-  }
-  
-  .open .hamburger-top {
-    transform: rotate(45deg) translateY(6px) translate(6px);
-  }
-  
-  .open .hamburger-middle {
+
+  /* Hide the menu button for larger screens */
+  .btn-nav {
     display: none;
   }
-  
-  .open .hamburger-bottom {
-    transform: rotate(-45deg) translateY(6px) translate(-6px);
+
+  /* Styles for active link */
+  .nav a:link.active,
+  a:visited.active,
+  a:active.active {
+    background: #f0bd2d;
+    background: -webkit-linear-gradient(45deg, #f0bd2d);
+    background: linear-gradient(45deg, #f0bd2d);
+    color: #003b65;
   }
-  
+
+  /* Skew transformation for nav-link */
+  .nav-link-span {
+    transform: skew(20deg);
+    display: inline-block;
+  }
+
+  /* Un-skew transformation for nav-link */
+  .nav-link {
+    transform: skew(-20deg);
+    text-decoration: none;
+  }
+
+  /* Add padding to the last nav-link */
+  .nav-link:last-child {
+    padding-right: 3em;
+  }
+
+  /* Hover styles for nav-links */
+  a:hover.nav-link:not(.active) {
+    color: #003b65;
+    background: #ddd;
+    background: linear-gradient(45deg, #ddd);
+  }
+}
+
+/* Additional styles for white background nav-links */
+.nav.right a.nav-link.white-bg {
+  background-color: #fff;
+}
+
+.nav.right a.nav-link.white-bg .nav-link-span {
+  background: #fffd;
+  background: -webkit-linear-gradient(45deg, #fffd, #fffd);
+  background: linear-gradient(65deg, #fffd, #fffd);
+}
+
+.nav.right a.nav-link.white-bg .nav-link-span:before {
+  background-color: #fff;
+}
+
+.nav.right a.nav-link.white-bg span.u-nav {
+  color: #003b65;
+  font-weight: bolder;
+}
+
+.nav.right a.nav-link.white-bg:hover span.u-nav {
+  color: #f0bd2d;
+}
