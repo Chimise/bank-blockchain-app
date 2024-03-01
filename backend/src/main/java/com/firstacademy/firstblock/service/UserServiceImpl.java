@@ -38,21 +38,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     @Override
     public UserDto signup(UserDto userDto) {
-        Role userRole = roleRepository.findByRole(UserRoles.USER);
         User user = userRepository.findByEmail(userDto.getEmail());
         if (user == null) {
             user = new User()
-                    .setEmail(userDto.getEmail())
-                    .setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()))
-                    .setRoles(new HashSet<>(Arrays.asList(userRole)))
                     .setFirstName(userDto.getFirstName())
                     .setLastName(userDto.getLastName())
-                    .setPhoneNumber(userDto.getPhoneNumber());
+                    .setPhoneNumber(userDto.getPhoneNumber())
+                    .setPermanentAddress(userDto.getPermanentAddress())
+                    .setDateOfBirth(userDto.getDateOfBirth())
+                    .setPresentAddress(userDto.getPermanentAddress())
+                    .setCity(userDto.getCity())
+                    .setPostalCode(userDto.getPostalCode())
+                    .setCountry(userDto.getCountry());
+
             return UserMapper.toUserDto(userRepository.save(user));
         }
         throw exception(USER, DUPLICATE_ENTITY, userDto.getEmail());
@@ -86,7 +86,14 @@ public class UserServiceImpl implements UserService {
             User userModel = user.get();
             userModel.setFirstName(userDto.getFirstName())
                     .setLastName(userDto.getLastName())
-                    .setPhoneNumber(userDto.getPhoneNumber());
+                    .setPhoneNumber(userDto.getPhoneNumber())
+                    .setPermanentAddress(userDto.getPermanentAddress())
+                    .setDateOfBirth(userDto.getDateOfBirth())
+                    .setPresentAddress(userDto.getPermanentAddress())
+                    .setCity(userDto.getCity())
+                    .setPostalCode(userDto.getPostalCode())
+                    .setCountry(userDto.getCountry());
+
             return UserMapper.toUserDto(userRepository.save(userModel));
         }
         throw exception(USER, ENTITY_NOT_FOUND, userDto.getEmail());
