@@ -2,7 +2,8 @@ import { Routes } from '@angular/router';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { LoginComponent } from './pages/login/login.component';
-import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AccountComponent } from './pages/dashboard/components/account/account.component';
 
 
 export const routes: Routes = [
@@ -15,8 +16,12 @@ export const routes: Routes = [
         path: ""
     },
     {
-        component: EditProfileComponent,
-        path: "update-profile"
+        component: DashboardComponent,
+        path: "dashboard",
+        children: [
+            { path: '', redirectTo: 'account', pathMatch: 'full' },
+            { path: 'account', component: AccountComponent },
+          ],
     },
     {
         component: NotfoundComponent,
