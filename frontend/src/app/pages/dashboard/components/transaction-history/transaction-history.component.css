@@ -1,0 +1,40 @@
+.recent-transactions h2 {
+    margin-bottom: 16px;
+  }
+  
+  .recent-transactions table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .recent-transactions td, .recent-transactions th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  h3 {
+    font-size: large;
+}
+
+.table {
+    background-color: white;
+    border-radius: 15px;
+    margin: 8px 0 8px 0;
+}
+
+.row {
+    padding: 8px;
+}
+
+.row-number, .name {
+    font-weight: 600;
+}
+
+.date, .type, .id {
+    font-weight: 490;
+    color: gray;
+}
+
+.amount {
+    font-weight: 490;
+}
