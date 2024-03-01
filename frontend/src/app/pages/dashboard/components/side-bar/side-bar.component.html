@@ -1,10 +1,9 @@
-<aside class="bg-blue-900 w-64 min-h-screen flex flex-col fixed top-0 left-0 transition-transform duration-300 transform" [ngClass]="{'-translate-x-full': !isOpen}">
+
+<aside class="bg-blue-900 sm:w-20 lg:w-64 mr-4 min-h-screen flex flex-col fixed top-0 left-0 transition-transform duration-300 transform" [ngClass]="{'-translate-x-full': !isOpen}">
     <!-- Close Button-->
-    <button (click)="toggleSidebar()" class="absolute -mr-4 shadow-md mt-2 top-4 right-2 text-white rounded-full border border-gray-200 bg-white focus:outline-none">
+    <!-- <button (click)="toggleSidebar()" class="absolute -mr-4 shadow-md mt-2 top-4 right-2 text-white rounded-full border border-gray-200 bg-white focus:outline-none">
         <img [src]="'assets/icons/arrow-right.svg'" alt="arrow-right" class="h-8 w-8">
-        <!-- <img [src]="isOpen ? 'assets/icons/arrow-right.svg' : 'assets/icons/arrow-left.svg'" alt="arrow" class="h-8 w-8" [class.rotate]="!isOpen"> -->
-        <!-- <i class="fi fi-rr-arrow-left"></i> -->
-    </button>
+    </button> -->
 
     <!-- Logo-->
     <div class="p-4 flex items-center justify-center">
@@ -18,8 +17,8 @@
     <nav class="flex-1">
         <ul class="space-y-2">
             <li *ngFor="let menu of menus">
-                <a [routerLink]="menu.route" class="flex justify-start text-white text-xl items-center p-4 hover:bg-yellow-500">
-                    <span class="mr-2">
+                <a [routerLink]="menu.route" class="flex justify-start text-white text-xl items-center p-4 hover:bg-yellow-500 hover:rounded">
+                    <span class="mr-5 ml-4">
                         <img [src]="'assets/icons/' + menu.icon + '.svg'" alt="{{ menu.name }} Icon" class="mr-2 h-6 w-6">
                     </span>
                     {{ menu.name}}
