@@ -1,36 +1,58 @@
-<header id="nav-wrapper">
-  <nav id="nav">
-    <div class="nav left">
-      <span class="gradient skew">
-        <h1 class="logo un-skew">
-          <a href="#home">
-            <img src="/assets/firstBanklogo-no-bg.png" alt="Logo" />
-          </a>
-        </h1>
-      </span>
-      <button id="menu" class="btn-nav">
-        <span class="fas fa-bars"></span>
-      </button>
-    </div>
-    
-    <div class="nav right">
-      <a href="#home" class="nav-link active">
-        <span class="nav-link-span"><span class="u-nav">Home</span></span>
+<header>
+  <div id="nav-wrapper">
+    <nav id="nav">
+      <div class="nav left">
+        <span class="gradient skew">
+          <h1 class="logo un-skew">
+            <a href="#home">
+              <img src="/assets/firstBanklogo-no-bg.png" alt="Logo" />
+            </a>
+          </h1>
+        </span>
+        <button (click)="toggleMenu()" id="menu" class="btn-nav px-6 text-white">
+          <span class="fas fa-bars"></span>
+        </button>
+      </div>
+      
+      <div class="nav right">
+        <a href="#home" class="nav-link active">
+          <span class="nav-link-span"><span class="u-nav">Home</span></span>
+        </a>
+        <a href="#about" class="nav-link">
+          <span class="nav-link-span"><span class="u-nav">About</span></span>
+        </a>
+        <a href="#services" class="nav-link">
+          <span class="nav-link-span"><span class="u-nav">Services</span></span>
+        </a>
+        <a href="#legal" class="nav-link">
+          <span class="nav-link-span"><span class="u-nav">Legal</span></span>
+        </a>
+        <a routerLink="/login" class="nav-link white-bg">
+          <span class="nav-link-span"
+            ><span class="u-nav">Online Banking</span></span
+          >
+        </a>
+      </div>    
+    </nav>
+  </div>
+
+  <div [hidden]="!isOpen" class="md:hidden absolute z-50 w-[100%] bg-neutral-900 bg-opacity-55">
+    <nav class="flex flex-col p-6 space-y-6">
+      <a href="#home" class="text-[21px] font-bold">
+        Home
       </a>
-      <a href="#about" class="nav-link">
-        <span class="nav-link-span"><span class="u-nav">About</span></span>
+      <a href="#about" class="text-[21px] font-bold">
+        About
       </a>
-      <a href="#services" class="nav-link">
-        <span class="nav-link-span"><span class="u-nav">Services</span></span>
+      <a href="#services" class="text-[21px] font-bold">
+        Services
       </a>
-      <a href="#legal" class="nav-link">
-        <span class="nav-link-span"><span class="u-nav">Legal</span></span>
+      <a href="#legal" class="text-[21px] font-bold">
+        Legal
       </a>
-      <a routerLink="/login" class="nav-link white-bg">
-        <span class="nav-link-span"
-          ><span class="u-nav">Online Banking</span></span
-        >
+      <a routerLink="/login" class="text-[21px] font-bold">
+        Online Banking
       </a>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </header>
