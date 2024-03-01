@@ -3,3 +3,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom Styles */
+
+.open {
+    transform: translateX(0);
+}
+
+.closed {
+    transform: translateX(-100%);
+}
