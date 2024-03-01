@@ -1,6 +1,5 @@
 package com.firstacademy.firstblock.service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,14 +7,18 @@ import java.util.List;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Jwts.SIG;
 import jakarta.servlet.http.HttpServletResponse;
 
 import com.firstacademy.firstblock.dto.model.UserDto;
 import static com.firstacademy.firstblock.security.SecurityConstants.*;
 import static com.firstacademy.firstblock.util.SecretKeyUtils.*;
+import com.firstacademy.firstblock.util.CookieUtils;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -35,8 +38,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String generateJwt(List<String> roles) {
-        String token = Jwts.builder().claims().add("roles", roles).and()
+    public String generateJwt(String username, List<String> roles) {
+        String token = Jwts.builder().claims().add("roles", roles).subject(username).and()
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(generateSecretKey(SECRET))
                 .compact();
@@ -52,9 +55,10 @@ public class AuthServiceImpl implements AuthService {
             if (login != null && login.length() > 0) {
                 List<String> roles = new ArrayList<>();
                 user.getAuthorities().stream().forEach(authority -> roles.add(authority.getAuthority()));
-                String token = generateJwt(roles);
+                String token = generateJwt(login, roles);
 
                 res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+                CookieUtils.setCookie(res, COOKIE_AUTH_NAME, token);
             }
         }
     }
