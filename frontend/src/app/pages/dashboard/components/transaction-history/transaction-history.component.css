@@ -12,5 +12,29 @@
     padding: 8px;
   }
   
-  /* Further styling as needed */
-  
+  h3 {
+    font-size: large;
+}
+
+.table {
+    background-color: white;
+    border-radius: 15px;
+    margin: 8px 0 8px 0;
+}
+
+.row {
+    padding: 8px;
+}
+
+.row-number, .name {
+    font-weight: 600;
+}
+
+.date, .type, .id {
+    font-weight: 490;
+    color: gray;
+}
+
+.amount {
+    font-weight: 490;
+}

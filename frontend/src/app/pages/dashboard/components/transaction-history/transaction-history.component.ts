@@ -18,9 +18,9 @@ interface Transaction {
 })
 export class TransactionHistoryComponent implements OnInit{
   transactions: Transaction[] = [
-    { id: 'TX123', accountName: 'Savings Account', date: '2024-02-28', type: 'Satellite Bills', amount: -150.00 },
-    { id: 'TX124', accountName: 'Checking Account', date: '2024-02-27', type: 'Shopping Service', amount: 200.00 },
-    { id: 'TX125', accountName: 'Savings Account', date: '2024-02-26', type: 'Grocery', amount: -50.00 }
+    { id: 'TX123', accountName: 'Savings Account', date: '2024-02-28', type: 'Satellite Bills', amount: -150 },
+    { id: 'TX124', accountName: 'Checking Account', date: '2024-02-27', type: 'Shopping Service', amount: 200 },
+    { id: 'TX125', accountName: 'Savings Account', date: '2024-02-26', type: 'Grocery', amount: -50 }
   ];
 
   i = 1;
