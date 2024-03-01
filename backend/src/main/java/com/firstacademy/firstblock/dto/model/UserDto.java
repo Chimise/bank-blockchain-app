@@ -1,6 +1,5 @@
 package com.firstacademy.firstblock.dto.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -10,6 +9,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.util.Collection;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -17,15 +17,23 @@ import java.util.Collection;
 @NoArgsConstructor
 @ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(value = { "password" }, ignoreUnknown = true)
 public class UserDto {
     private String email;
-    @JsonIgnore
     private String password;
     private String firstName;
     private String lastName;
+    private String username;
     private String phoneNumber;
+    private Date dateOfBirth;
     private boolean isAdmin;
+    private String presentAddress;
+    private String permanentAddress;
+    private String city;
+    private String postalCode;
+    private String country;
+    private Date createdAt;
+    private Date updatedAt;
     private Collection<RoleDto> roles;
 
     public String getFullName() {
