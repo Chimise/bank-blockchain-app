@@ -1,23 +1,23 @@
 #hero-section {
-    /* background-image: url("/assets/images/hero-image1.jpg"); */
+    background-image: url("/assets/images/homepage-1.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 600px;
-    animation: zoomAndChangeBackground 15s infinite alternate;
+    height: 700px;
+    animation: zoomAndChangeBackground 21s infinite forwards;
 }
 
 @keyframes zoomAndChangeBackground {
-    0%, 100% {
-        background-image: url("/assets/images/hero-image1.jpg");
+    0%, 33.33% {
+        background-image: url("/assets/images/homepage-1.png");
         background-size: 100% 100%;
     }
-    33% {
-        background-image: url("/assets/images/hero-image2.jpg");
-        background-size: 120% 120%;
+    33.34%, 66.66% {
+        background-image: url("/assets/images/homepage-2.png");
+        background-size: 100% 100%;
     }
-    66% {
-        background-image: url("/assets/images/hero-image3.jpg");
+    66.67%, 100% {
+        background-image: url("/assets/images/homepage-3.png");
         background-size: 100% 100%;
     }
 }
