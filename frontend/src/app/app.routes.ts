@@ -8,6 +8,7 @@ import { AccountComponent } from './pages/dashboard/components/account/account.c
 
 
 
+
 export const routes: Routes = [
     {
         component: DashboardComponent,
@@ -33,6 +34,7 @@ export const routes: Routes = [
         component: EditProfileComponent,
         path: "profile"
     },
+    
     {
         component: NotfoundComponent,
         path: "**"
