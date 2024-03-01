@@ -1,0 +1,20 @@
+<div class="recent-transactions">
+    <h3 class="font-bold text-foreground">Recent Transactions</h3>
+    <div class="table w-full">
+      @for(transaction of transactions; track $index) {
+        <div class="row flex justify-between">
+            <div class="row-number content-center w-1/12">{{ $index + 1 + "." }}</div>
+            <div class="name-and-date content-center w-4/12">
+              <div class="name">{{ transaction.accountName }}</div>
+              <div class="date">{{ transaction.date }}</div>
+            </div>
+            <div class="type content-center w-2/12">{{ transaction.type }}</div>
+            <div class="id content-center w-3/12">{{ transaction.id }}</div>
+            <div class="amount content-center w-2/12" [ngStyle]="{'color': transaction.amount > 0 ? 'green' : 'red'}">
+              {{ transaction.amount > 0 ? '+' : '' }}{{ transaction.amount | currency }}
+            </div>
+          </div>
+      }
+    </div>
+  </div>
+  
