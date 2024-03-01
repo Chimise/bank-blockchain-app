@@ -12,8 +12,11 @@ import com.firstacademy.firstblock.repository.RoleRepository;
 import com.firstacademy.firstblock.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
@@ -24,7 +27,7 @@ import static com.firstacademy.firstblock.exception.EntityType.USER;
 import static com.firstacademy.firstblock.exception.ExceptionType.DUPLICATE_ENTITY;
 import static com.firstacademy.firstblock.exception.ExceptionType.ENTITY_NOT_FOUND;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
@@ -65,7 +68,7 @@ public class UserServiceImpl implements UserService {
     public UserDto findUserByEmail(String email) {
         Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
         if (user.isPresent()) {
-            return modelMapper.map(user.get(), UserDto.class);
+            return UserMapper.toUserDto(user.get());
         }
         throw exception(USER, ENTITY_NOT_FOUND, email);
     }
@@ -105,6 +108,17 @@ public class UserServiceImpl implements UserService {
             return UserMapper.toUserDto(userRepository.save(userModel));
         }
         throw exception(USER, ENTITY_NOT_FOUND, userDto.getEmail());
+    }
+
+    @Override
+    public UserDto getCurrentUser() throws UsernameNotFoundException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = (String) authentication.getPrincipal();
+        if (email == null) {
+            throw new UsernameNotFoundException("User details not found");
+        }
+
+        return this.findUserByEmail(email);
     }
 
     /**

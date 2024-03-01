@@ -1,5 +1,7 @@
 package com.firstacademy.firstblock.service;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import com.firstacademy.firstblock.dto.model.UserDto;
 
 public interface UserService {
@@ -34,4 +36,6 @@ public interface UserService {
      * @return
      */
     UserDto changePassword(UserDto userDto, String newPassword);
+
+    UserDto getCurrentUser() throws UsernameNotFoundException;
 }
