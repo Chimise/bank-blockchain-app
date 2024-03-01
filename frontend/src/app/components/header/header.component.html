@@ -1,54 +1,35 @@
-<header class="w-full h-30 bg-white text-blue-900 shadow-md hover:shadow-lg">
-    <app-container [class]="'flex items-center justify-between h-full py-3'">
-        <a routerLink="/">
-            <img src="/assets/firstBanklogo-no-bg.png" alt="" width="150px" height="100px" >
-        </a>
-        <div class="hidden md:flex items-center space-x-4 flex-1 justify-end sm:space-x-1 md:space-x-3 lg:justify-center md:justify-center lg:space-x-6 ">
-            <app-navlink href="/">
-                Home
-            </app-navlink>
-            <app-navlink href="/about">
-                About
-            </app-navlink>
-            <app-navlink href="/services">
-                Services
-            </app-navlink>
-            <app-navlink href="/legal">
-                Legal
-            </app-navlink>
-        </div>
-        <div>
-           <button class="hidden md:block bg-yellow-500 text-white hover:bg-blue-900 items-center p-2 px-3 font-semibold rounded-full"><a routerLink="/login">Online Banking</a></button> 
-        </div>
-
-        <!-- Hamburger Icon -->
-        <button
-          id="menu-btn"
-          class="block hamburger mt-2 md:hidden focus:outline-none"
-          (click)="toggleMenu()"
-        >
-          <span class="hamburger-top"></span>
-          <span class="hamburger-middle"></span>
-          <span class="hamburger-bottom"></span>
-        </button>        
-    </app-container>
-    
-    <!-- Mobile view menu-->
-    <div [hidden]="isOpen" class="md:hidden bg-blue-900">
-        <div id="menu" class="flex flex-col space-y-5 mx-9 text-white py-5">
-            <app-navlink href="/">
-                Home
-            </app-navlink>
-            <app-navlink href="/about">
-                About
-            </app-navlink>
-            <app-navlink href="/services">
-                Services
-            </app-navlink>
-            <app-navlink href="/legal">
-                Legal
-            </app-navlink>
-        </div>
+<header id="nav-wrapper">
+  <nav id="nav">
+    <div class="nav left">
+      <span class="gradient skew">
+        <h1 class="logo un-skew">
+          <a href="#home">
+            <img src="/assets/firstBanklogo-no-bg.png" alt="Logo" />
+          </a>
+        </h1>
+      </span>
+      <button id="menu" class="btn-nav">
+        <span class="fas fa-bars"></span>
+      </button>
     </div>
+    <div class="nav right">
+      <a href="#home" class="nav-link active">
+        <span class="nav-link-span"><span class="u-nav">Home</span></span>
+      </a>
+      <a href="#about" class="nav-link">
+        <span class="nav-link-span"><span class="u-nav">About</span></span>
+      </a>
+      <a href="#services" class="nav-link">
+        <span class="nav-link-span"><span class="u-nav">Services</span></span>
+      </a>
+      <a href="#legal" class="nav-link">
+        <span class="nav-link-span"><span class="u-nav">Legal</span></span>
+      </a>
+      <a routerLink="/login" class="nav-link white-bg">
+        <span class="nav-link-span"
+          ><span class="u-nav">Online Banking</span></span
+        >
+      </a>
+    </div>
+  </nav>
 </header>
-
