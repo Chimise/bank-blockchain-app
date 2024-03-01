@@ -17,7 +17,8 @@ import java.util.Collection;
 @ToString
 @Accessors(chain = true)
 @Entity
-@Table(name = "users", indexes = @Index(name = "idx_user_email", columnList = "email", unique = true))
+@Table(name = "users", indexes = { @Index(name = "idx_user_email", columnList = "email", unique = true),
+        @Index(name = "idx_user_username", columnList = "username", unique = true) })
 public class User {
 
     @Id
@@ -31,11 +32,21 @@ public class User {
 
     private String email;
 
-    private String address;
+    private String username;
+
+    private String presentAddress;
+
+    private String permanentAddress;
+
+    private String city;
+
+    private String country;
 
     private Date dateOfBirth;
 
     private String password;
+
+    private String postalCode;
 
     private String otp;
 
