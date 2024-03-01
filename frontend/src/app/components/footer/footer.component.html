@@ -1,14 +1,12 @@
-<footer class="h-30 bg-blue-900 text-white py-3 mx-auto">
-    <app-container class="container mx-auto h-full flex flex-col lg:flex-row justify-between items-end">
-        <div class="hover:text-yellow-500">
-            <a routerLink="/">FirstBlocks</a>
-            <span> &copy; {{currentYear}} </span>
-        </div>
-        <div class="ms-auto hover:text-yellow-400">
-            <span> Powered by </span>
-            <a routerLink="/">
-                <span>FirstAcademy Tech. 2.0 Software Engineering</span>
-            </a>
-        </div>
-    </app-container>
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <span class="footer-year">&copy; {{ currentYear }}</span>
+    </div>
+    <div class="footer-section footer-powered-by">
+      <a class="footer-link" href="/"
+        >FirstBlocks Powered by FirstBank Tech Academy 2.0</a
+      >
+    </div>
+  </div>
 </footer>
