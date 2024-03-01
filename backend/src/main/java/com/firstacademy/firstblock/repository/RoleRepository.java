@@ -1,8 +1,6 @@
 
 package com.firstacademy.firstblock.repository;
 
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.firstacademy.firstblock.model.Role;
