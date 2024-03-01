@@ -49,3 +49,8 @@ header, footer {
     background-color: #ddad31;
     margin-bottom: 20px;
 }
+
+.logo {
+    width: 15%;
+    height: auto;
+}
