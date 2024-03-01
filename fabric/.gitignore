@@ -32,5 +32,14 @@ install-fabric.sh
 !full-stack-asset-transfer-guide/infrastructure/sample-network/config
 
 full-stack-asset-transfer-guide/
+
+# Ignore test folders
 test-network/
 asset-transfer-basic/
+
+# Ignore generated configs
+network/organizations/ordererOrganizations
+network/organizations/peerOrganizations
+log.txt
+basic.tar.gz
+channel-artifacts
