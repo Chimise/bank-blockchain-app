@@ -1,0 +1,34 @@
+<!-- header.component.html -->
+<header class="header bg-white p-2 lg:pl-12 px-12 border shadow-md">
+    <div class="header-container flex justify-between items-center">
+      <!-- Left Side - Account Menu -->
+      <div class="flex items-center">
+        <!-- Account Menu -->
+        <a routerLink="/account" class="text-blue text-2xl hover:text-gray-300 mr-4">Account</a>
+      </div>
+  
+      <!-- Right Side - User Image and Bell Notification Icon -->
+      <div class="flex items-center">
+        <!-- Bell Notification Icon -->
+        <button (click)="toggleNotifications()" class="text-white focus:outline-none mr-4">
+          <img src="assets/icons/bell-notification.svg" alt="bell">
+        </button>
+        
+        <!-- User Image Holder - Dropdown -->
+        <div class="relative">
+          <button (click)="toggleDropdown()" class="focus:outline-none">
+            <img src="assets/icons/user-image.svg" alt="User Image" class="h-12 w-16 rounded-full">
+          </button>
+          <!-- Dropdown Menu -->
+          <div *ngIf="showDropdown" class="absolute top-12 right-0 bg-white border border-gray-200 rounded shadow-md mt-2">
+            <ul class="py-1">
+              <li><a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a></li>
+              <li><a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Settings</a></li>
+              <li><a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
