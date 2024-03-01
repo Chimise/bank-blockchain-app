@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.firstacademy.firstblock.dto.model.UserDto;
 import com.firstacademy.firstblock.dto.model.RoleDto;
 import com.firstacademy.firstblock.model.User;
+import com.firstacademy.firstblock.model.UserRoles;
 
 @Component
 public class UserMapper {
@@ -23,7 +24,9 @@ public class UserMapper {
                         .getRoles()
                         .stream()
                         .map(role -> new ModelMapper().map(role, RoleDto.class))
-                        .collect(Collectors.toSet())));
+                        .collect(Collectors.toSet())))
+                .setAdmin(user.getRoles().stream().anyMatch(role -> role.getRole() == UserRoles.ADMIN));
+
     }
 
 }

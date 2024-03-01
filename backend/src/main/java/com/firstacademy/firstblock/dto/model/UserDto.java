@@ -1,5 +1,6 @@
 package com.firstacademy.firstblock.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -19,6 +20,7 @@ import java.util.Collection;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto {
     private String email;
+    @JsonIgnore
     private String password;
     private String firstName;
     private String lastName;

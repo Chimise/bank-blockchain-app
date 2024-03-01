@@ -21,7 +21,7 @@ import java.util.Collection;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "user_id")
     private Long id;
 
@@ -53,7 +53,8 @@ public class User {
 
     private Date updatedAt;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
             @JoinColumn(name = "role_id") })
     private Collection<Role> roles;
