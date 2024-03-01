@@ -27,7 +27,7 @@ public class UpdateProfileRequest {
 
     @NotBlank
     @Size(min = 3, message = "Username should be at least three characters")
-    private String userName;
+    private String username;
 
     @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
@@ -49,22 +49,28 @@ public class UpdateProfileRequest {
     private String country;
 
     public String getFirstName() {
+        if (name == null || name.length() == 0) {
+            return null;
+        }
         String[] names = name.split(" ");
         return names.length >= 1 ? names[0] : null;
     }
 
     public String getLastName() {
+        if (name == null || name.length() == 0) {
+            return null;
+        }
         String[] names = name.split(" ");
         return names.length >= 2 ? names[1] : null;
     }
 
     public UserDto build(UserDto userDto) {
-        if (hasValue(userName)) {
-            userDto.setUsername(this.getUserName());
+        if (hasValue(username)) {
+            userDto.setUsername(username);
         }
 
         if (hasValue(dateOfBirth)) {
-            userDto.setDateOfBirth(this.getDateOfBirth());
+            userDto.setDateOfBirth(dateOfBirth);
         }
 
         if (hasValue(presentAddress)) {

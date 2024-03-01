@@ -17,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(value = { "password" }, ignoreUnknown = true)
+@JsonIgnoreProperties(value = { "password", "roles" }, ignoreUnknown = true)
 public class UserDto {
     private String email;
     private String password;
