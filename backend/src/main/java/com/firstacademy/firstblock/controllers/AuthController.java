@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
-import com.firstacademy.firstblock.dto.model.UserDto;
 import com.firstacademy.firstblock.dto.response.Response;
 import com.firstacademy.firstblock.dto.request.SignUpDto;
 

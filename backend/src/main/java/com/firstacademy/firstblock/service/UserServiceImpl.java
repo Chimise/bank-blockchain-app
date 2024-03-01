@@ -92,7 +92,8 @@ public class UserServiceImpl implements UserService {
                     .setPresentAddress(userDto.getPermanentAddress())
                     .setCity(userDto.getCity())
                     .setPostalCode(userDto.getPostalCode())
-                    .setCountry(userDto.getCountry());
+                    .setCountry(userDto.getCountry())
+                    .setUsername(userDto.getUsername());
 
             return UserMapper.toUserDto(userRepository.save(userModel));
         }
