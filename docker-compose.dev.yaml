@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    networks:
+      - my-network
+    environment:
+      MYSQL_ROOT_PASSWORD: password$123
+      MYSQL_DATABASE: banking-app
+      MYSQL_USER: bankingapp
+      MYSQL_PASSWORD: password$user1
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    ports:
+      - "3308:3306"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: backend
+    restart: always
+    networks:
+      - my-network
+    ports:
+      - "8080:8080"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=banking-app
+      - MYSQL_USER=bankingapp
+      - MYSQL_PASSWORD=password$user1
+      - SHOW_SQL=true
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: frontend
+    restart: always
+    networks:
+      - my-network
+    ports:
+      - "4200:4200"
+      - "49153:49153"
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      - backend
+
+networks:
+  my-network:
+    driver: bridge
