@@ -37,9 +37,17 @@ full-stack-asset-transfer-guide/
 test-network/
 asset-transfer-basic/
 
-# Ignore generated configs
+
+# Ignore generated artificats and certificates
 network/organizations/ordererOrganizations
 network/organizations/peerOrganizations
+network/log.txt
 log.txt
 basic.tar.gz
 channel-artifacts
+network/channel-artifacts
+
+
+#ignore precompiled smart contracts
+contracts/bank-transactions/dist
+

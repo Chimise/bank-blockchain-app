@@ -1,1 +1,42 @@
-<p>login works!</p>
+<!-- login.component.html -->
+<div class="min-h-screen flex flex-col">
+    <header class="p-4 text-right">
+        <img class="logo" src="assets/logo.png" alt="logo">
+            </header>
+
+    <main class="flex-grow flex items-center justify-center image-overlay">
+        <div class="flex w-full max-w-6xl">
+            <div class="w-3/5 p-8" style="color: antiquewhite;">
+                <h2 class="text-3xl font-bold mb-10">Lightning Transactions</h2>
+                <div class="yellow-divider"></div>
+                <h2 class="text-2xl mb-10">Welcome to the future. Blockchain driven banking.</h2>
+            </div>
+            <div class="w-2/6 bg-white p-8" style="border-radius: 5px;">
+                <h2 class="sign-in-text">Sign in with your account details</h2>
+                <form>
+                    <div style="padding-top: 30px;">
+                        <input type="text" id="username" placeholder="Username" class="log-in-fields">
+                    </div>
+                    <div style="padding-bottom: 20px;">
+                        <input type="password" id="password" placeholder="Password" class="log-in-fields">
+                    </div>
+                    <button type="submit"
+                        class="login-btn">SIGN
+                        IN</button>
+                    <div class="flex items-center justify-between mb-6">
+                        <a href="#" class="login-options">Forgot Username</a>
+                        <a href="#" class="login-options">Forgot/Change Password</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-4 bg-gray-800 text-white text-center">
+        <div class="marquee">
+            <p class="marquee-text">For all issues and enquiries, kindly send a mail to
+                FirstBlocksCustomerCare&#64;firstbanknigeria.com</p>
+        </div>
+
+    </footer>
+</div>

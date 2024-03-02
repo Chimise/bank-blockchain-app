@@ -1,0 +1,29 @@
+.payment-card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    padding: 1rem 2rem 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 2rem;
+    border: 2px solid transparent
+  }
+
+  .payment-card:hover {
+    border-color: rgba(208,18,45,1);
+    box-shadow: 0 0 15px 5px rgba(248, 192, 186, 1);
+  }
+  
+
+.img {
+    border-radius: 50%;
+    padding: 0.5rem;
+    margin: 7px;
+    background-color: rgba(248, 192, 186, 1);
+  }
+
+  p {
+    font-weight: bold;
+    color: gray;
+    font-size: small;
+  }

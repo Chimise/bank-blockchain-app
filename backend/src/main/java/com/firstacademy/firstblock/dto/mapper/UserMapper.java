@@ -1,0 +1,40 @@
+package com.firstacademy.firstblock.dto.mapper;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.stream.Collectors;
+
+import com.firstacademy.firstblock.dto.model.UserDto;
+import com.firstacademy.firstblock.dto.model.RoleDto;
+import com.firstacademy.firstblock.model.User;
+import com.firstacademy.firstblock.model.UserRoles;
+
+@Component
+public class UserMapper {
+
+    public static UserDto toUserDto(User user) {
+        return new UserDto()
+                .setEmail(user.getEmail())
+                .setPassword(user.getPassword())
+                .setFirstName(user.getFirstName())
+                .setLastName(user.getLastName())
+                .setPhoneNumber(user.getPhoneNumber())
+                .setRoles(new HashSet<RoleDto>(user
+                        .getRoles()
+                        .stream()
+                        .map(role -> new ModelMapper().map(role, RoleDto.class))
+                        .collect(Collectors.toSet())))
+                .setAdmin(user.getRoles().stream().anyMatch(role -> role.getRole() == UserRoles.ADMIN))
+                .setCity(user.getCity())
+                .setCountry(user.getCountry())
+                .setDateOfBirth(user.getDateOfBirth())
+                .setPermanentAddress(user.getPermanentAddress())
+                .setPresentAddress(user.getPresentAddress())
+                .setCreatedAt(user.getCreatedAt())
+                .setPostalCode(user.getPostalCode())
+                .setUsername(user.getUsername());
+    }
+
+}

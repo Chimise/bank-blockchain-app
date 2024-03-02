@@ -1,4 +1,4 @@
-package com.firstacademy.firstblock.models;
+package com.firstacademy.firstblock.model;
 
 public enum UserRoles {
     ADMIN,
