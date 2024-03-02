@@ -1,3 +1,3 @@
-/* .header {
-    margin-left: 250px;
-} */
+:host {
+    border-color: white;
+}

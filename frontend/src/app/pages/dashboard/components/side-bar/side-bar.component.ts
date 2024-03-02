@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContainerComponent } from '../../../../components/container/container.component';
-import { RouterLink, Router, ActivatedRoute } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MenuItem } from '../../model/menu';
 
@@ -21,11 +21,16 @@ export class SideBarComponent implements OnInit{
   ];
 
   
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     
   }
+
+  isActive(routePath: string): boolean {
+    return this.router.url.includes(routePath);
+  }
+  
 
   toggleSidebar(): void {
     this.isOpen = !this.isOpen;

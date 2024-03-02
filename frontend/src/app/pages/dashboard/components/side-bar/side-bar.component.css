@@ -1,3 +1,11 @@
 .rotate {
     transform: rotate(180deg);
   }
+
+  li {
+    border-radius: 5px;
+  }
+
+  :host {
+    border-color: white;
+  }
