@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { AccountComponent } from './pages/dashboard/components/account/account.component';
+import { authGuard } from './guard/auth/auth.guard';
 
 
 
@@ -12,7 +13,8 @@ import { AccountComponent } from './pages/dashboard/components/account/account.c
 export const routes: Routes = [
     {
         component: DashboardComponent,
-        path: "dashboard"
+        path: "dashboard",
+        canActivate: [authGuard]
     },
     {
         component: LoginComponent,
@@ -28,11 +30,13 @@ export const routes: Routes = [
         children: [
             { path: 'account', component: AccountComponent },
             { path: '', redirectTo: '/account', pathMatch: 'full' },
-          ],
+        ],
+        canActivate: [authGuard]
     },
     {
         component: EditProfileComponent,
-        path: "profile"
+        path: "profile",
+        canActivate: [authGuard]
     },
     
     {
