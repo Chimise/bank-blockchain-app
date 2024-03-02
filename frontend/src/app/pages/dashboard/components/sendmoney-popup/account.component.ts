@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-account',
+  selector: 'app-sendmoney-popup',
   standalone: true,
   imports: [FormsModule,
   ReactiveFormsModule
@@ -11,7 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })
-export class AccountComponent implements OnInit{
+export class SendMoneyPopupComponent implements OnInit{
 
   sendMoneyForm:FormGroup = new FormGroup({});
 
