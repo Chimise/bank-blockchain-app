@@ -3,21 +3,21 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 700px;
-    animation: zoomAndChangeBackground 21s infinite forwards;
+    height: 600px;
+    animation: zoomAndChangeBackground 15s infinite alternate;
 }
 
 @keyframes zoomAndChangeBackground {
-    0%, 33.33% {
-        background-image: url("/assets/images/homepage-1.png");
+    0%, 100% {
+        background-image: url("/assets/images/hero-image-1.jpg");
         background-size: 100% 100%;
     }
-    33.34%, 66.66% {
-        background-image: url("/assets/images/homepage-2.png");
-        background-size: 100% 100%;
+    33.34% {
+        background-image: url("/assets/images/hero-image-2.jpg");
+        background-size: 120% 120%;
     }
-    66.67%, 100% {
-        background-image: url("/assets/images/homepage-3.png");
+    66% {
+        background-image: url("/assets/images/hero-image-3.png");
         background-size: 100% 100%;
     }
 }
