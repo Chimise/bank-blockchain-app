@@ -17,6 +17,7 @@ public class UserMapper {
     public static UserDto toUserDto(User user) {
         return new UserDto()
                 .setEmail(user.getEmail())
+                .setPassword(user.getPassword())
                 .setFirstName(user.getFirstName())
                 .setLastName(user.getLastName())
                 .setPhoneNumber(user.getPhoneNumber())
@@ -25,8 +26,15 @@ public class UserMapper {
                         .stream()
                         .map(role -> new ModelMapper().map(role, RoleDto.class))
                         .collect(Collectors.toSet())))
-                .setAdmin(user.getRoles().stream().anyMatch(role -> role.getRole() == UserRoles.ADMIN));
-
+                .setAdmin(user.getRoles().stream().anyMatch(role -> role.getRole() == UserRoles.ADMIN))
+                .setCity(user.getCity())
+                .setCountry(user.getCountry())
+                .setDateOfBirth(user.getDateOfBirth())
+                .setPermanentAddress(user.getPermanentAddress())
+                .setPresentAddress(user.getPresentAddress())
+                .setCreatedAt(user.getCreatedAt())
+                .setPostalCode(user.getPostalCode())
+                .setUsername(user.getUsername());
     }
 
 }

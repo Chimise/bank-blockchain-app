@@ -35,11 +35,11 @@ public class ApiJWTAuthorizationFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authentication = getAuthentication(token);
         if (authentication != null) {
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
-
+            SecurityContext context = SecurityContextHolder.createEmptyContext();
+            context.setAuthentication(authentication);
+            SecurityContextHolder.setContext(context);
         }
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(authentication);
-        SecurityContextHolder.setContext(context);
+
         chain.doFilter(req, res);
     }
 

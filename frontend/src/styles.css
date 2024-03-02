@@ -37,3 +37,15 @@
     box-sizing: border-box;
 }
 
+
+/* Custom Styles */
+
+.open {
+    transform: translateX(0);
+}
+
+.closed {
+    transform: translateX(-100%);
+}
+
+
