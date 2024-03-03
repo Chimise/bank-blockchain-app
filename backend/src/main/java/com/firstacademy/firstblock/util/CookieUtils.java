@@ -8,7 +8,7 @@ import static com.firstacademy.firstblock.security.SecurityConstants.*;
 public class CookieUtils {
     public static Cookie getCookie(HttpServletRequest req, String cookieName) {
         Cookie[] cookies = req.getCookies();
-        if (cookies.length == 0) {
+        if (cookies == null || cookies.length == 0) {
             return null;
         }
 
@@ -41,7 +41,7 @@ public class CookieUtils {
         String token = getCookieValue(req, cookieName);
         if (token == null) {
             String header = req.getHeader(HEADER_STRING);
-            if (header.startsWith(TOKEN_PREFIX)) {
+            if (header != null && header.startsWith(TOKEN_PREFIX)) {
                 token = header.replace(TOKEN_PREFIX, "");
             }
         }

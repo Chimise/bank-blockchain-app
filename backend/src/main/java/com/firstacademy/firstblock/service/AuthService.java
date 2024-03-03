@@ -10,7 +10,7 @@ import com.firstacademy.firstblock.dto.model.UserDto;
 import jakarta.servlet.http.HttpServletResponse;
 
 public interface AuthService {
-    public Authentication authenticate(UserDto userDto) throws AuthenticationException;
+    public Authentication authenticate(String email, String password) throws AuthenticationException;
 
     public String generateJwt(String username, List<String> roles);
 
