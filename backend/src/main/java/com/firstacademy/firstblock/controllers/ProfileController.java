@@ -21,14 +21,12 @@ public class ProfileController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public Response<?> viewProfile() {
         UserDto currentUser = this.userService.getCurrentUser();
         return Response.ok().setPayload(currentUser);
     }
 
-    @PreAuthorize("hasRole('USER')")
     @PutMapping
     public Response<?> updateProfile(@Valid @RequestBody UpdateProfileRequest profileRequest) {
         UserDto currentUser = this.userService.getCurrentUser();
