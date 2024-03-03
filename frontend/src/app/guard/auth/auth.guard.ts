@@ -1,16 +1,16 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { Injectable, inject } from '@angular/core';
-import { AuthService } from '/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
-@Injectable()
-class PermsissionService {
+@Injectable({ providedIn: "root" })
+class PermissionService {
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {}
+  ) { }
 
-  canActivate(): boolean {
-    if (this.authService.checkAuthentication()) {
+  async canActivate(): Promise<boolean> {
+    if (await this.authService.isAuthenticated()) {
       return true;
     } else {
       this.router.navigate(['/login']);
@@ -21,5 +21,5 @@ class PermsissionService {
 
 export const authGuard: CanActivateFn = (route, state) => {
   // return true;
-  return inject(PermsissionService).canActivate();
+  return inject(PermissionService).canActivate();
 };
