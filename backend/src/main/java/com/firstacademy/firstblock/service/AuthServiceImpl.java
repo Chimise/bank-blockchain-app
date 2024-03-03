@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void setJwtCookie(HttpServletResponse res, Authentication auth) {
+    public String setJwtCookie(HttpServletResponse res, Authentication auth) {
         if (auth.getPrincipal() != null) {
             org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) auth
                     .getPrincipal();
@@ -58,9 +58,11 @@ public class AuthServiceImpl implements AuthService {
                 String token = generateJwt(login, roles);
 
                 res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
-                CookieUtils.setCookie(res, COOKIE_AUTH_NAME, token);
+                return token;
             }
         }
+
+        return null;
     }
 
 }
