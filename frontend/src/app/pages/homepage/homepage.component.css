@@ -3,7 +3,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 700px;
+    height: 600px;
     animation: zoomAndChangeBackground 21s infinite forwards;
 }
 
