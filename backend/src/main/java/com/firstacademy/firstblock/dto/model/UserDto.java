@@ -19,6 +19,7 @@ import java.util.Date;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "password", "roles" }, ignoreUnknown = true)
 public class UserDto {
+    private Long id;
     private String email;
     private String password;
     private String firstName;
