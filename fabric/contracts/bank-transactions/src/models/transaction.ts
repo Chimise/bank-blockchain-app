@@ -1,21 +1,21 @@
 import { Object as DataType, Property } from "fabric-contract-api";
 import { assertValue } from "../utils";
+import { DocType } from "./doctype";
 
 export enum TransactionType {
     Credit = "CR",
     Debit = "DR"
 }
 
-export enum TransactionStatus {
-    Pending = "pending",
-    Completed = "completed",
-    Failure = "failure"
-}
-
 export enum TransactionMethod {
     Online = "online",
     Atm = "atm",
     InStore = "in-store"
+}
+
+export enum TransactionMode {
+    Transfer = "transfer",
+    Charge = "charge"
 }
 
 export enum Currency {
@@ -25,14 +25,17 @@ export enum Currency {
 
 @DataType()
 export class Transaction {
+
+    public type: TransactionType = null;
+
     @Property("id", "string")
     public id: string;
 
-    @Property("accNo", "string")
-    public accNo: string;
+    @Property("docType", "string")
+    public docType = DocType.Transaction
 
-    @Property("type", "string")
-    public type: TransactionType;
+    @Property("accNo", "string")
+    public from: string;
 
     @Property("amount", "number")
     public amount: number;
@@ -44,23 +47,24 @@ export class Transaction {
     public description: string = "";
 
     @Property("receiver", "string")
-    public receiver: string = "";
+    public to: string = "";
 
     @Property("currency", "string")
     public currency: Currency = Currency.NGN;
-    @Property("fee", "number")
-    public fee: number = 0;
 
-    constructor(id: string, accNo: string, type: TransactionType, amount: number, createdAt?: string) {
+    @Property("mode", "string")
+    public mode = TransactionMode.Transfer;
+
+    constructor(id: string, from: string, to: string, amount: number, createdAt?: string) {
         this.id = id;
-        this.accNo = accNo;
-        this.type = type;
+        this.from = from;
+        this.to = to;
         this.amount = amount;
         this.createdAt = createdAt ? createdAt : new Date().toISOString();
     }
 
-    public setReceiver(receiver: string) {
-        this.receiver = receiver;
+    public setReceiver(to: string) {
+        this.to = to;
     }
 
     public setCurrency(currency: Currency) {
@@ -71,35 +75,24 @@ export class Transaction {
         this.description = description;
     }
 
-    public setFee(fee: number) {
-        this.fee = fee;
+    public setAccountType(type: TransactionType) {
+        this.type = type;
+    }
+
+    public setMode(mode: TransactionMode) {
+        this.mode = mode;
     }
 
     public static create(state: Partial<Transaction>): Transaction {
         const id = assertValue(state.id, 'Must provide a transaction id');
-        const accNo = assertValue(state.accNo, "Acc No must be provided");
-        const type = assertValue(state.type, "Transaction type must be provided");
+        const senderAccNo = assertValue(state.from, "Sender Acc No must be provided");
         const amount = assertValue(state.amount, "Transaction amount must be provided");
+        const receiverAccNo = assertValue(state.to, "Receiver Acc No must be provided");
 
-        const transaction = new Transaction(id, accNo, type, amount);
-        if (state.fee) {
-            transaction.setFee(state.fee);
-        }
-
-        if (state.receiver) {
-            transaction.setReceiver(state.receiver);
-        }
-
-        if (state.description) {
-            transaction.setDescription(state.description);
-        }
-
-        if (state.currency) {
-            transaction.setCurrency(state.currency);
-        }
+        const transaction = new Transaction(id, senderAccNo, receiverAccNo, amount);
+        Object.assign(transaction, state);
 
         return transaction;
     }
-
 }
 

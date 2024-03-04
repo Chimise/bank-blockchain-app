@@ -1,15 +1,15 @@
 import { Object as DataType, Property } from "fabric-contract-api";
+import { DocType } from "./doctype";
 
-export enum BankAccountType {
-    Deposits = "deposits",
-
+export enum AllBankAccounts {
+    CHARGES_ACCOUNT = "BANK101",
+    DEPOSIT_ACCOUNT = "BANK102"
 }
-
 
 @DataType()
 export class BankAccount {
-    @Property("accNo", "number")
-    accNo: number;
+    @Property("accNo", "string")
+    accNo: string;
 
     @Property("bal", "number")
     bal: number;
@@ -17,4 +17,26 @@ export class BankAccount {
     @Property("name", "string")
     name: string;
 
+    @Property("docType", "string")
+    docType = DocType.BankAccount;
+
+    @Property("createdAt", "string")
+    createdAt: string;
+
+    constructor(accNo: string, bal: number, name: string) {
+        this.accNo = accNo;
+        this.bal = bal;
+        this.name = name;
+        this.createdAt = new Date().toISOString();
+    }
+
+    static create(account: BankAccount) {
+        const bankAcc = new BankAccount(account.accNo, account.bal, account.name);
+        bankAcc.createdAt = account.createdAt;
+        return bankAcc;
+    }
+
+    public addFund(fund: number) {
+        this.bal += fund;
+    }
 }
