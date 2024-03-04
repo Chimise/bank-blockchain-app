@@ -1,4 +1,3 @@
-/* Reset button styles */
 button {
   background: none;
   box-shadow: none;
@@ -6,7 +5,6 @@ button {
   cursor: pointer;
 }
 
-/* Skew and un-skew transformations */
 .skew {
   transform: skew(-20deg);
 }
@@ -15,7 +13,6 @@ button {
   transform: skew(20deg);
 }
 
-/* Navbar styles */
 #nav {
   background-color: #003b65;
   display: flex;
@@ -37,7 +34,6 @@ button {
   padding: 0 1em;
 }
 
-/* Gradient background for logo */
 span.gradient {
   background: #fffd;
   background: -webkit-linear-gradient(45deg, #fffd, #fffd);
@@ -48,7 +44,6 @@ span.gradient {
   margin-right: auto;
 }
 
-/* Logo styles */
 h1.logo {
   font-size: 1.75em;
   line-height: 0.75em;
@@ -57,14 +52,13 @@ h1.logo {
   margin-top: 8px;
 }
 
-/* Nav link styles */
 .nav-link {
   text-transform: uppercase;
   text-align: center;
   border-top: 0.5px solid #ddd;
+  font-weight: 400;
 }
 
-/* Link styles */
 a:link,
 a:visited,
 a:active {
@@ -102,22 +96,19 @@ a:active {
     height: auto;
   }
 
-  /* Hide the menu button for larger screens */
   .btn-nav {
     display: none;
   }
 
   /* Styles for active link */
-  .nav a:link.active,
-  a:visited.active,
-  a:active.active {
+  .nav-link a:link.active,
+  .nav-link a:visited.active,
+  .nav-link a:active.active,
+  .nav a[routerLink="/login"].active {
     background: #f0bd2d;
-    background: -webkit-linear-gradient(45deg, #f0bd2d);
-    background: linear-gradient(45deg, #f0bd2d);
     color: #003b65;
   }
 
-  /* Skew transformation for nav-link */
   .nav-link-span {
     transform: skew(20deg);
     display: inline-block;
@@ -138,7 +129,6 @@ a:active {
   a:hover.nav-link:not(.active) {
     color: #003b65;
     background: #ddd;
-    background: linear-gradient(45deg, #ddd);
   }
 }
 
