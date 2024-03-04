@@ -5,7 +5,9 @@
   background-image: url("../../../assets/background.jpg");
   background-size: cover;
   background-position: center;
+  
 }
+
 body {
   font-family: "Poppins", sans-serif;
   display: flex;
@@ -96,6 +98,7 @@ body {
   background: white;
   padding-top: 15px;
   font-weight: 500;
+  min-width: 30px;
 }
 
 .login-btn:hover {
@@ -193,6 +196,7 @@ footer {
   width: 50vw;
   height: 60vh;
   display: grid;
+  min-width: 10vw;
 }
 
 .blocks-ad {
@@ -222,4 +226,14 @@ footer {
 .blocks-ad p {
   font-size: 18px;
   color: #ffff;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 0 0px; 
+    }
+
+    .blocks-container {
+        display: none; 
+    }
 }
