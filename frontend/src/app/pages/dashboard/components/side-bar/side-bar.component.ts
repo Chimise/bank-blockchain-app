@@ -14,10 +14,10 @@ import { MenuItem } from '../../model/menu';
 export class SideBarComponent implements OnInit{
   isOpen: boolean = true;
   menus: MenuItem[] = [
-    { name: 'Account', route: '/account', icon: 'credit-card'},
-    { name: 'History', route: '/history', icon: 'payment'},
-    { name: 'Profile', route: '/profile', icon: 'user'},
-    { name: 'Logout', route: '/logout', icon: 'logout'}
+    { name: 'Account', route: '/dashboard/account', icon: 'credit-card'},
+    { name: 'History', route: '/dashboard/history', icon: 'payment'},
+    { name: 'Profile', route: '/dashboard/profile', icon: 'user'},
+    { name: 'Logout', route: '/dashboard/logout', icon: 'logout'}
   ];
 
   
