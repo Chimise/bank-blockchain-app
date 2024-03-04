@@ -8,7 +8,6 @@ import { AccountComponent } from './pages/dashboard/components/account/account.c
 import { authGuard } from './guard/auth/auth.guard';
 
 export const routes: Routes = [
-<<<<<<< Updated upstream
   {
     component: LoginComponent,
     path: 'login',
@@ -35,34 +34,4 @@ export const routes: Routes = [
     component: NotfoundComponent,
     path: '**',
   },
-=======
-    {
-        component: DashboardComponent,
-        path: "dashboard"
-    },
-    {
-        component: LoginComponent,
-        path: "login"
-    },
-    {
-        component: HomepageComponent,
-        path: ""
-    },
-    {
-        component: DashboardComponent,
-        path: "dashboard",
-        children: [
-            { path: '', redirectTo: 'account', pathMatch: 'full' },
-            { path: 'account', component: AccountComponent },
-            {
-                component: EditProfileComponent,
-                path: "profile"
-            }
-          ],
-    },
-    {
-        component: NotfoundComponent,
-        path: "**"
-    }
->>>>>>> Stashed changes
 ];
