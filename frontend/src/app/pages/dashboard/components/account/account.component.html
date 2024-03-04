@@ -8,5 +8,5 @@
     <app-send-money (buttonClick)="togglePopup()"></app-send-money>
     <app-transaction-history></app-transaction-history>
 </div>
-<app-sendmoney-popup class="w-1/2 bg-transparent" *ngIf="showPopup" (send)="handleSend()" (closePopup)="showPopup = false"></app-sendmoney-popup>
+<app-sendmoney-popup class="bg-transparent" *ngIf="showPopup" (send)="handleSend()" (closePopup)="showPopup = false"></app-sendmoney-popup>
 <app-otp-page *ngIf="showNewModal" (closeNewModal)="showNewModal = false"></app-otp-page>

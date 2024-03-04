@@ -16,3 +16,7 @@ app-sendmoney-popup, app-otp-page {
     transform: translateX(-50%) translateY(-50%);
     z-index: 10;
 }
+
+app-sendmoney-popup {
+    width: 42%;
+}
