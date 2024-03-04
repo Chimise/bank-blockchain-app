@@ -46,6 +46,7 @@ log.txt
 basic.tar.gz
 channel-artifacts
 network/channel-artifacts
+network/*.tar.gz
 
 
 #ignore precompiled smart contracts
