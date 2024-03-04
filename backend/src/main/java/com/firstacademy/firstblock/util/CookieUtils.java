@@ -23,6 +23,7 @@ public class CookieUtils {
 
     public static String getCookieValue(HttpServletRequest req, String cookieName) {
         Cookie cookie = getCookie(req, cookieName);
+        System.out.println(cookie);
         return cookie != null ? cookie.getValue() : null;
     }
 
@@ -30,6 +31,8 @@ public class CookieUtils {
         Cookie cookie = new Cookie(cookieName, value);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
+        int maxAge = (int) (EXPIRATION_TIME / 1000);
+        cookie.setMaxAge(maxAge);
         res.addCookie(cookie);
     }
 

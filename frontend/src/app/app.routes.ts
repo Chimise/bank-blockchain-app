@@ -5,34 +5,33 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EditProfileComponent } from './pages/dashboard/components/edit-profile/edit-profile.component';
 import { AccountComponent } from './pages/dashboard/components/account/account.component';
-
-
-
+import { authGuard } from './guard/auth/auth.guard';
 
 export const routes: Routes = [
-    {
-        component: DashboardComponent,
-        path: "dashboard"
-    },
-    {
-        component: LoginComponent,
-        path: "login"
-    },
-    {
-        component: HomepageComponent,
-        path: ""
-    },
-    {
-        component: DashboardComponent,
-        path: "dashboard",
-        children: [
-            { path: 'account', component: AccountComponent },
-            { path: '', redirectTo: './account', pathMatch: 'full' },
-            {path: 'profile', component: EditProfileComponent}
-          ],
-    },
-    {
-        component: NotfoundComponent,
-        path: "**"
-    }
+  {
+    component: LoginComponent,
+    path: 'login',
+  },
+  {
+    component: DashboardComponent,
+    path: 'dashboard',
+    children: [
+      { path: 'account', component: AccountComponent },
+      { path: '', redirectTo: '/dashboard/account', pathMatch: 'full' },
+    ],
+    canActivate: [authGuard],
+  },
+  {
+    component: EditProfileComponent,
+    path: 'profile',
+    canActivate: [authGuard],
+  },
+  {
+    component: HomepageComponent,
+    path: '',
+  },
+  {
+    component: NotfoundComponent,
+    path: '**',
+  },
 ];

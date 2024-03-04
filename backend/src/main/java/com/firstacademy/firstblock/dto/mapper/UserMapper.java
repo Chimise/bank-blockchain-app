@@ -34,7 +34,8 @@ public class UserMapper {
                 .setPresentAddress(user.getPresentAddress())
                 .setCreatedAt(user.getCreatedAt())
                 .setPostalCode(user.getPostalCode())
-                .setUsername(user.getUsername());
+                .setUsername(user.getUsername())
+                .setId(user.getId());
     }
 
 }
