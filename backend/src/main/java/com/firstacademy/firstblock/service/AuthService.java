@@ -14,5 +14,5 @@ public interface AuthService {
 
     public String generateJwt(String username, List<String> roles);
 
-    public void setJwtCookie(HttpServletResponse response, Authentication auth);
+    public String setJwtCookie(HttpServletResponse response, Authentication auth);
 }

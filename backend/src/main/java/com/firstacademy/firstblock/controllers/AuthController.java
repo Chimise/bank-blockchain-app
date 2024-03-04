@@ -29,8 +29,8 @@ public class AuthController {
     public Response<?> logInUser(HttpServletRequest req, HttpServletResponse res, @Valid @RequestBody SignUpDto body) {
 
         Authentication authentication = authService.authenticate(body.getEmail(), body.getPassword());
-        authService.setJwtCookie(res, authentication);
+        String token = authService.setJwtCookie(res, authentication);
 
-        return Response.ok().setPayload("Successfully signed in");
+        return Response.ok().setPayload("Successfully signed in").setMetadata(token);
     }
 }

@@ -54,7 +54,7 @@ public class MultiHttpSecurityConfig {
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authorizeHttpRequests((authorize) -> authorize
-                                                .requestMatchers("/error", "/api/auth/login")
+                                                .requestMatchers("/error")
                                                 .permitAll()
                                                 .requestMatchers("/api/auth/login").permitAll()
                                                 .anyRequest().authenticated())
@@ -69,7 +69,7 @@ public class MultiHttpSecurityConfig {
    //@formatter:off
     return web -> {
       web.ignoring().requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**",
-        "/images/**", "/resources/static/**", "/css/**", "/js/**", "/img/**", "/fonts/**", "/images/**", "/scss/**", "/vendor/**", "/favicon.ico", "/auth/**", "/favicon.png", "/v2/api-docs", "/configuration/ui","/configuration/security","/webjars/**", "/swagger-resources/**", "/actuator","/swagger-ui/**", "/actuator/**", "/swagger-ui/index.html", "/swagger-ui/");
+        "/images/**", "/resources/static/**", "/css/**", "/js/**", "/img/**", "/fonts/**", "/images/**", "/scss/**", "/vendor/**", "/favicon.ico", "/auth/**", "/favicon.png", "/v2/api-docs", "/configuration/ui","/configuration/security","/webjars/**", "/swagger-resources/**", "/actuator","/swagger-ui/**", "/actuator/**", "/swagger-ui/index.html", "/swagger-ui/", "/error", "/api/auth/login");
     };
     //@formatter:on
         }
@@ -78,7 +78,8 @@ public class MultiHttpSecurityConfig {
                 CorsConfiguration configuration = new CorsConfiguration();
                 configuration.setAllowedOrigins(Arrays.asList(environment.getProperty("cors.allowed-origins")));
                 configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-                configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization", "Origin", "Accept"));
+                configuration.setAllowedHeaders(
+                                Arrays.asList("Content-Type", "Authorization", "Origin", "Accept", "Cookie"));
                 configuration.setAllowCredentials(true);
                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
                 source.registerCorsConfiguration("/**", configuration);

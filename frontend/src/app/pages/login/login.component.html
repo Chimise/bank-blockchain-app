@@ -2,7 +2,7 @@
 <div class="min-h-screen flex flex-col">
     <header class="p-4 text-right">
         <img class="logo" src="assets/logo.png" alt="logo">
-            </header>
+    </header>
 
     <main class="flex-grow flex items-center justify-center image-overlay">
         <div class="flex w-full max-w-6xl">
@@ -13,15 +13,17 @@
             </div>
             <div class="w-2/6 bg-white p-8" style="border-radius: 5px;">
                 <h2 class="sign-in-text">Sign in with your account details</h2>
-                <form>
+                <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
                     <div style="padding-top: 30px;">
-                        <input type="text" id="username" placeholder="Username" class="log-in-fields">
+                        <input type="text" id="email" placeholder="Email" class="log-in-fields"
+                               formControlName="email">
                     </div>
                     <div style="padding-bottom: 20px;">
-                        <input type="password" id="password" placeholder="Password" class="log-in-fields">
+                        <input type="password" id="password" placeholder="Password" class="log-in-fields"
+                               formControlName="password">
                     </div>
-                    <button type="submit"
-                        class="login-btn">SIGN
+                    <button type=" submit"
+                            class="login-btn">SIGN
                         IN</button>
                     <div class="flex items-center justify-between mb-6">
                         <a href="#" class="login-options">Forgot Username</a>
