@@ -6,6 +6,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { AccountComponent } from './pages/dashboard/components/account/account.component';
 import { authGuard } from './guard/auth/auth.guard';
+import { AboutComponent } from './pages/about/about.component';
+import { ServiceComponent } from './pages/service/service.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +28,18 @@ export const routes: Routes = [
     component: EditProfileComponent,
     path: 'profile',
     canActivate: [authGuard],
+  },
+  {
+    component: AboutComponent,
+    path: 'about'
+  },
+  {
+    component: ServiceComponent,
+    path: 'services'
+  },
+  {
+    component: ContactComponent,
+    path: 'contact'
   },
   {
     component: HomepageComponent,
