@@ -1,11 +1,12 @@
-<div class="account mx-auto px-4 py-4 sm:px-8 lg:container" [class.blur-effect]="showPopup">
+<div class="account mx-auto px-4 py-4 sm:px-8 lg:container" [class.blur-effect]="showPopup || showNewModal">
     <app-account-header></app-account-header>
     <div class="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4">
         @for(data of info; track data.id) {
             <app-account-info-card [title]="data.title" [description]="data.description" [src]="data.src" [svgBgColor]="data.svgBgColor" [hoverBorderColor]="data.hoverBorderColor" [hoverShadowColor]="data.hoverShadowColor"></app-account-info-card>
     }
     </div>
-    <app-send-money  (click)="togglePopup()"></app-send-money>
+    <app-send-money (buttonClick)="togglePopup()"></app-send-money>
     <app-transaction-history></app-transaction-history>
 </div>
-<app-sendmoney-popup *ngIf="showPopup"></app-sendmoney-popup>
+<app-sendmoney-popup class="w-1/2 bg-transparent" *ngIf="showPopup" (send)="handleSend()" (closePopup)="showPopup = false"></app-sendmoney-popup>
+<app-otp-page *ngIf="showNewModal" (closeNewModal)="showNewModal = false"></app-otp-page>

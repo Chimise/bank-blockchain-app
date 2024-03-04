@@ -9,7 +9,7 @@
     position: relative;
 }
 
-app-sendmoney-popup {
+app-sendmoney-popup, app-otp-page {
     position: absolute;
     top: 50%;
     left: 50%;

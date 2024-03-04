@@ -5,11 +5,12 @@ import { SendMoneyComponent } from '../send-money/send-money.component';
 import { TransactionHistoryComponent } from '../transaction-history/transaction-history.component';
 import { SendMoneyPopupComponent } from '../sendmoney-popup/account.component';
 import { CommonModule, NgIf } from '@angular/common';
+import { OtpPageComponent } from '../otp-popup/otp-page.component';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [AccountHeaderComponent, AccountInfoCardComponent, SendMoneyComponent, TransactionHistoryComponent, SendMoneyPopupComponent, NgIf, CommonModule],
+  imports: [AccountHeaderComponent, AccountInfoCardComponent, SendMoneyComponent, TransactionHistoryComponent, SendMoneyPopupComponent, NgIf, CommonModule, OtpPageComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })
@@ -22,8 +23,19 @@ export class AccountComponent {
   ]
 
   showPopup = false;
+  showNewModal = false;
 
   togglePopup() {
     this.showPopup = !this.showPopup;
+  }
+
+  handleSend() {
+    this.showPopup = false;
+    this.showNewModal = true;
+  }
+
+  cancelOp() {
+    this.showPopup = false;
+    this.showNewModal = false;
   }
 }

@@ -1,5 +1,5 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class SendMoneyPopupComponent implements OnInit{
 
   sendMoneyForm:FormGroup = new FormGroup({});
+
+  @Output() send = new EventEmitter<void>();
+  @Output() closePopup = new EventEmitter<void>();
 
   constructor(private Fb: FormBuilder){
     
@@ -31,10 +34,17 @@ export class SendMoneyPopupComponent implements OnInit{
     if (this.sendMoneyForm.valid){
 
       console.log('Form is Valid!');
+      this.send.emit();
     }
     else{
       console.log('Form is invalid');
     }
   }
+
+  closeButtonClicked() {
+    this.closePopup.emit();
+  }
+  
+
 
 }
