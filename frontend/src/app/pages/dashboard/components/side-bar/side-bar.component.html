@@ -17,7 +17,7 @@
     <!-- Menu Items-->
     <nav class="flex-1">
         <ul class="space-y-2">
-            <li *ngFor="let menu of menus">
+            <li *ngFor="let menu of menus" [ngStyle]="{'background-color': isActive(menu.route.slice(2)) ? 'rgb(234, 179, 8)' : 'transparent'}">
                 <a  style="color: #1E3F65;" [routerLink]="menu.route" class="flex justify-start text-white text-xl items-center p-4 hover:bg-yellow-500 hover:rounded">
                     <span class="mr-5 ml-4">
                         <img [src]="'assets/icons/' + menu.icon + '.svg'" alt="{{ menu.name }} Icon" class="mr-2 h-6 w-6">

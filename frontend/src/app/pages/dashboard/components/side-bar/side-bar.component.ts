@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContainerComponent } from '../../../../components/container/container.component';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MenuItem } from '../../model/menu';
 
@@ -14,18 +14,23 @@ import { MenuItem } from '../../model/menu';
 export class SideBarComponent implements OnInit{
   isOpen: boolean = true;
   menus: MenuItem[] = [
-    { name: 'Account', route: '/dashboard/account', icon: 'credit-card'},
-    { name: 'History', route: '/dashboard/history', icon: 'payment'},
-    { name: 'Profile', route: '/dashboard/profile', icon: 'user'},
-    { name: 'Logout', route: '/dashboard/logout', icon: 'logout'}
+    { name: 'Account', route: './account', icon: 'credit-card'},
+    { name: 'History', route: './history', icon: 'payment'},
+    { name: 'Profile', route: './profile', icon: 'user'},
+    { name: 'Logout', route: './logout', icon: 'logout'}
   ];
 
   
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     
   }
+
+  isActive(routePath: string): boolean {
+    return this.router.url.includes(routePath);
+  }
+  
 
   toggleSidebar(): void {
     this.isOpen = !this.isOpen;

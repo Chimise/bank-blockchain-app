@@ -1,3 +1,7 @@
-/* .header {
-    margin-left: 250px;
-} */
+:host {
+    border-color: white;
+}
+
+.dropdown {
+    z-index: 10;
+}
