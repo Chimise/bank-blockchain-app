@@ -11,23 +11,23 @@ import { AllBankAccounts } from './models/bank-account';
 export class BankTransactionContract extends Contract {
 
     @Transaction()
-    public async InitLedger(ctx: Context) {
+    public async InitLedger(ctx: Context): Promise<void> {
         const bankSavingAcc = new BankAccount(AllBankAccounts.CHARGES_ACCOUNT, 300000000, "Deposits");
 
-        await ctx.stub.putState(bankSavingAcc.accNo, marshal(bankSavingAcc));
+        await ctx.stub.putState(bankSavingAcc.accNo, marshal(bankSavingAcc.toObject()));
 
         this.#logger(ctx).info("Initialized the bank saving account");
     }
 
     @Transaction()
-    public async CreateAccount(ctx: Context, state: Partial<Account>) {
-        const acc = Account.create(state);
+    public async CreateAccount(ctx: Context, userId: number, accNo: string, accountName: string, initialBalance: number): Promise<void> {
+        const acc = new Account(accNo, accountName, userId, initialBalance);
         const accExists = await this.AccountExists(ctx, acc.accNo)
         if (accExists) {
             throw new Error(`Account no ${acc} already exists`);
         }
 
-        const accBytes = marshal(acc);
+        const accBytes = marshal(acc.toObject());
         await ctx.stub.putState(acc.accNo, accBytes);
         await ctx.stub.setEvent("CreateAccount", accBytes);
         this.#logger(ctx).info(`Account ${acc.accNo} was created`);
@@ -41,8 +41,12 @@ export class BankTransactionContract extends Contract {
     }
 
     @Transaction()
-    public async UpdateAccount(ctx: Context, accNo: string, userId: number, state: Partial<Account>) {
-        const updates: Partial<Account> = { name: state.name, type: state.type, status: state.status, dailyLimit: state.dailyLimit, transactionLimit: state.transactionLimit };
+    public async UpdateAccount(ctx: Context, userId: number, accNo: string, name?: string, type?: string, status?: string): Promise<void> {
+
+        if (arguments.length <= 1) {
+            throw new Error("Update arguments is empty");
+        }
+        const updates: Partial<Account> = { name, status, type };
 
         const account = await this.#readAccount(ctx, accNo);
 
@@ -52,19 +56,19 @@ export class BankTransactionContract extends Contract {
 
         const updatedAccount = mergeObjects(account, updates);
         const updatedAccountBytes = marshal(updatedAccount);
-        ctx.stub.putState(accNo, updatedAccountBytes);
-        ctx.stub.setEvent("UpdateAccount", updatedAccountBytes);
+
+        return await ctx.stub.putState(accNo, updatedAccountBytes);
     }
 
     @Transaction(false)
-    @Returns("Account")
-    public async ReadAccount(ctx: Context, accNo: string) {
+    @Returns("string")
+    public async ReadAccount(ctx: Context, accNo: string): Promise<string> {
         const account = await this.#readAccount(ctx, accNo);
-        return toJSON(account);
+        return JSON.stringify(account);
     }
 
     @Transaction()
-    public async TransferFunds(ctx: Context, senderUserId: number, transactionId: string, senderAccNo: string, recieverAccNo: string, amount: number, narration: string) {
+    public async TransferFunds(ctx: Context, senderUserId: number, transactionId: string, senderAccNo: string, recieverAccNo: string, amount: number, narration: string, timestamp: string): Promise<void> {
         const senderAcc = await this.#readAccount(ctx, senderAccNo);
         const recieverAcc = await this.#readAccount(ctx, recieverAccNo);
         const bankAccc = await this.#readBankAccount(ctx, AllBankAccounts.CHARGES_ACCOUNT);
@@ -96,20 +100,19 @@ export class BankTransactionContract extends Contract {
         if (!hasEnoughFunds(senderAcc, amount, charge)) {
             throw new Error(`Insufficient Funds`);
         }
-        const transactionDate = ctx.stub.getDateTimestamp().toISOString();
 
-        if (await this.#isDailyLimitExceeded(ctx, senderAccNo, transactionDate, senderAcc.dailyLimit)) {
+        if (await this.#isDailyLimitExceeded(ctx, senderAccNo, timestamp, senderAcc.dailyLimit)) {
             throw new Error(`Account ${senderAcc} has exceeded it's daily limit`);
         }
 
-        const transaction = new BankTransaction(transactionId, senderAccNo, recieverAccNo, amount, transactionDate);
+        const transaction = new BankTransaction(transactionId, senderAccNo, recieverAccNo, amount, timestamp);
 
         transaction.setMode(TransactionMode.Transfer);
         transaction.setDescription(narration);
 
         const chargeTransactionId = this.#generateChargeTransactionId(transactionId);
 
-        const chargeTransaction = new BankTransaction(chargeTransactionId, senderAccNo, AllBankAccounts.CHARGES_ACCOUNT, charge, transactionDate);
+        const chargeTransaction = new BankTransaction(chargeTransactionId, senderAccNo, AllBankAccounts.CHARGES_ACCOUNT, charge, timestamp);
         chargeTransaction.setMode(TransactionMode.Charge);
 
         senderAcc.setBalance(senderAcc.bal - (amount + charge));
@@ -117,33 +120,34 @@ export class BankTransactionContract extends Contract {
         bankAccc.addFund(charge);
 
         try {
-            const key = await this.#generateTransactionKey(ctx, transactionId, senderAccNo, recieverAccNo, transactionDate);
-            await ctx.stub.putState(key, marshal(transaction));
+            const key = await this.#generateTransactionKey(ctx, transactionId, senderAccNo, recieverAccNo, timestamp);
+            await ctx.stub.putState(key, marshal(transaction.toObject()));
 
-            const chargeKey = await this.#generateTransactionKey(ctx, chargeTransactionId, senderAccNo, AllBankAccounts.CHARGES_ACCOUNT, transactionDate);
-            await ctx.stub.putState(chargeKey, marshal(chargeTransaction));
+            const chargeKey = await this.#generateTransactionKey(ctx, chargeTransactionId, senderAccNo, AllBankAccounts.CHARGES_ACCOUNT, timestamp);
+            await ctx.stub.putState(chargeKey, marshal(chargeTransaction.toObject()));
         } catch (error) {
             throw new Error(`Transaction ${transactionId} couldn't complete`);
         }
 
 
         try {
-            await ctx.stub.putState(senderAccNo, marshal(senderAcc));
-            await ctx.stub.putState(recieverAccNo, marshal(recieverAcc));
-            await ctx.stub.putState(AllBankAccounts.CHARGES_ACCOUNT, marshal(bankAccc));
+            await ctx.stub.putState(senderAccNo, marshal(senderAcc.toObject()));
+            await ctx.stub.putState(recieverAccNo, marshal(recieverAcc.toObject()));
+            await ctx.stub.putState(AllBankAccounts.CHARGES_ACCOUNT, marshal(bankAccc.toObject()));
         } catch (error) {
             throw new Error(`Transaction ${transactionId} couldn't complete`);
         }
 
-        ctx.stub.setEvent('TransferFund', marshal(transaction));
+        ctx.stub.setEvent('TransferFund', marshal(transaction.toObject()));
     }
 
 
     @Transaction(false)
-    public async ReadTransaction(ctx: Context, transactionId: string) {
+    @Returns("string")
+    public async ReadTransaction(ctx: Context, transactionId: string): Promise<string> {
         const transactionIterator = await ctx.stub.getStateByPartialCompositeKey(DocType.Transaction, [transactionId]);
         const transactionResult = await transactionIterator.next();
-        if (!transactionResult) {
+        if (!transactionResult.value?.value) {
             throw new Error(`Transaction ${transactionId} does not exist`);
         }
 
@@ -153,7 +157,8 @@ export class BankTransactionContract extends Contract {
     }
 
     @Transaction(false)
-    public async ReadTransactionHistory(ctx: Context, accNo: string) {
+    @Returns("string")
+    public async ReadTransactionHistory(ctx: Context, accNo: string): Promise<string> {
         const transactionIterator = await ctx.stub.getStateByPartialCompositeKey(DocType.Transaction, [accNo]);
 
         let result = await transactionIterator.next();
@@ -199,7 +204,7 @@ export class BankTransactionContract extends Contract {
         const resultIterator = await ctx.stub.getStateByPartialCompositeKey(DocType.Transaction, [transactionId]);
         const result = await resultIterator.next();
         await resultIterator.close();
-        if (result) {
+        if (result.value?.value) {
             return true;
         }
 
@@ -243,7 +248,7 @@ export class BankTransactionContract extends Contract {
 
 
 function hasEnoughFunds(account: Account, amount: number, charge: number = 0) {
-    const remainingBal = (amount + charge) - account.bal;
+    const remainingBal = account.bal - (amount + charge);
     if (remainingBal > 1000) {
         return true;
     }
