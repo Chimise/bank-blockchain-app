@@ -7,7 +7,7 @@ import { AccountComponent } from './components/account/account.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SideBarComponent, HeaderComponent, RouterOutlet, AccountComponent],
+  imports: [SideBarComponent,HeaderComponent,RouterOutlet,AccountComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
