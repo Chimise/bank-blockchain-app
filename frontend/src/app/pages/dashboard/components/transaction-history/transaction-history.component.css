@@ -1,5 +1,6 @@
 .recent-transactions h2 {
     margin-bottom: 16px;
+    
   }
   
   .recent-transactions table {
@@ -37,4 +38,9 @@
 
 .amount {
     font-weight: 490;
+}
+
+.recent-transactions{
+  margin-left: 65px;
+  margin-bottom: 415px;
 }

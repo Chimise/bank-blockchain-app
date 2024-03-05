@@ -1,59 +1,174 @@
-<div class="profile mx-auto my-10 md:w-[100%] p-4 bg-white border border-gray-200 shadow sm:p-6 md:p-8 dark:bg-gray-700 dark:border-gray-700">
-    <form class="space-y-6" action="#">
-        <div class="md:flex flex-row md:space-x-6">
-            <!-- Profile Picture -->
-            <div class="flex flex-col items-center md:items-start md:w-1/4 space-y-6">
-                <img src="assets/images/avatar-profile-picture.png" class="w-36 rounded-full" alt="">
-            </div>
+<div
+  class="profile mx-auto my-10 md:w-[100%] p-4 bg-white border border-gray-200 shadow sm:p-6 md:p-8 dark:bg-gray-700 dark:border-gray-700"
+>
+  <form class="space-y-6" action="#">
+    <div class="md:flex flex-row md:space-x-6">
+      <!-- Profile Picture -->
+      <div class="flex flex-col items-center md:items-start md:w-1/4 space-y-6">
+        <img
+          src="assets/images/avatar-profile-picture.png"
+          class="w-36 rounded-full"
+          alt=""
+        />
+      </div>
 
-            <!-- Left column form -->
-            <div class="flex flex-col mt-6 md:mt-0 md:w-3/4 space-y-6">
-                <div>
-                    <label for="name" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Your Name</label>
-                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="{{ user?.firstName }} {{ user?.lastName }}" disabled />
-                </div>
-                <div>
-                    <label for="email" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Email</label>
-                    <input type="email" name="email" id="email" placeholder="{{ user?.email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
-                </div>
-                <div>
-                    <label for="dateOfBirth" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Date of Birth</label>
-                    <input type="text" name="dateOfBirth" id="dateOfBirth" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" disabled />
-                </div>
-                <div>
-                    <label for="permanentAddress" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Permanent Address</label>
-                    <input type="text" name="permanentAddress" id="permanentAddress" placeholder="{{ user?.permanentAddress }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
-                </div>
-                <div>
-                    <label for="postalCode" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Postal Code</label>
-                    <input type="text" name="postalCode" id="postalCode" placeholder="{{ user?.postalCode }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
-                </div>
-            </div>
-
-            <!-- Right column form -->
-            <div class="flex flex-col md:w-3/4 mt-6 md:mt-0 space-y-6">
-                <div>
-                    <label for="username" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Username</label>
-                    <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="{{ user?.username }}" disabled />
-                </div>
-                <!-- <div>
-                    <label for="password" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Password</label>
-                    <input type="password" name="password" id="password" placeholder="**********" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
-                </div> -->
-                <div>
-                    <label for="presentAddress" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Present Address</label>
-                    <input type="text" name="presentAddress" id="presentAddress" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="{{ user?.presentAddress }}" disabled />
-                </div>
-                <div>
-                    <label for="city" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">City</label>
-                    <input type="text" name="city" id="city" placeholder="{{ user?.city }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
-                </div>
-                <div>
-                    <label for="country" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Country</label>
-                    <input type="text" name="country" id="country" placeholder="{{ user?.country }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
-                </div>
-            </div>
+      <!-- Left column form -->
+      <div class="flex flex-col mt-6 md:mt-0 md:w-3/4 space-y-6">
+        <div>
+          <label
+            for="name"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >Your Name</label
+          >
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder="{{ user?.firstName }} {{ user?.lastName }}"
+            disabled
+          />
         </div>
-    </form>
-</div>
+        <div>
+          <label
+            for="email"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >Email</label
+          >
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="{{ user?.email }}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            disabled
+          />
+        </div>
+        <div>
+          <label
+            for="dateOfBirth"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >Date of Birth</label
+          >
+          <input
+            type="text"
+            name="dateOfBirth"
+            id="dateOfBirth"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder=""
+            disabled
+          />
+        </div>
+        <div>
+          <label
+            for="permanentAddress"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >Permanent Address</label
+          >
+          <input
+            type="text"
+            name="permanentAddress"
+            id="permanentAddress"
+            placeholder="{{ user?.permanentAddress }}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            disabled
+          />
+        </div>
+        <div>
+          <label
+            for="postalCode"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >Postal Code</label
+          >
+          <input
+            type="text"
+            name="postalCode"
+            id="postalCode"
+            placeholder="{{ user?.postalCode }}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            disabled
+          />
+        </div>
+      </div>
 
+      <!-- Right column form -->
+      <div class="flex flex-col md:w-3/4 mt-6 md:mt-0 space-y-6">
+        <div>
+          <label
+            for="username"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >Username</label
+          >
+          <input
+            type="text"
+            name="username"
+            id="username"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder="{{ user?.username }}"
+            disabled
+          />
+        </div>
+        <!-- <div>
+          <label
+            for="password"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >Password</label
+          >
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="**********"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-black"
+            disabled
+          />
+        </div> -->
+        <div>
+          <label
+            for="presentAddress"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >Present Address</label
+          >
+          <input
+            type="text"
+            name="presentAddress"
+            id="presentAddress"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-black"
+            placeholder="{{ user?.presentAddress }}"
+            disabled
+          />
+        </div>
+        <div>
+          <label
+            for="city"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >City</label
+          >
+          <input
+            type="text"
+            name="city"
+            id="city"
+            placeholder="{{ user?.city }}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            disabled
+          />
+        </div>
+        <div>
+          <label
+            for="country"
+            class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
+            >Country</label
+          >
+          <input
+            type="text"
+            name="country"
+            id="country"
+            placeholder="{{ user?.country }}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-black"
+            disabled
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

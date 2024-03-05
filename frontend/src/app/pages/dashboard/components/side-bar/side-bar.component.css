@@ -1,11 +1,129 @@
-.rotate {
-    transform: rotate(180deg);
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
-  li {
-    border-radius: 5px;
-  }
+.sidebar {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  width: 110px;
+  height: 100%;
+  display: block;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(#003b65, #f0bd2d, #003b65);
+  backdrop-filter: blur(17px);
+  --webkit-backdrop-filter: blur(17px);
+  transition: width 0.3s ease;
+}
 
-  :host {
-    border-color: white;
-  }
+.sidebar:hover {
+  width: 260px;
+  height: 100%;
+}
+
+.sidebar .logo {
+  display: flex;
+  align-items: center;
+  padding: 25px 10px 15px;
+  margin-top: -9px;
+}
+
+.logo img {
+  width: 40px;
+  border-radius: 50%;
+  margin-bottom: 300px;
+  margin-left: 25px;
+}
+
+.logo .hide {
+  margin-left: 15px;
+  display: none;
+  padding-right: 15px;
+  margin-bottom: 270px;
+}
+
+.sidebar:hover .logo .hide {
+  display: flex;
+  width: 200px;
+  margin-top: -70px;
+}
+
+.sidebar:hover .logo img {
+  display: none;
+}
+
+.sidebar .links {
+  list-style: none;
+  margin-top: 70px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  height: calc(100% - 140px);
+  margin-left: -43px;
+}
+
+.sidebar:hover .links {
+  list-style: none;
+  margin-top: 15px;
+  margin-left: -195px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  height: calc(100% - 140px);
+}
+
+.sidebar .links::-webkit-scrollbar {
+  display: none;
+}
+
+.links li {
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+}
+
+a .links li:hover {
+  cursor: pointer;
+  background: none;
+}
+
+.links li span {
+  padding: 12px 10px;
+}
+
+.links li a {
+  padding: 10px;
+  color: #000;
+  display: none;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.sidebar:hover .links li a {
+  display: block;
+}
+
+a {
+  position: relative;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 0 10px;
+}
+a:after {
+  content: "";
+  position: absolute;
+  background-color: #000;
+  height: 2px;
+  width: 0;
+  left: 0;
+  bottom: -3px;
+  transition: 0.3s;
+  margin-left: 10px;
+}
+
+a:hover:after {
+  width: 85%;
+}
