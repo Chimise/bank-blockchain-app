@@ -28,47 +28,48 @@ const DAILY_LIMIT = 100000000;
 
 @DataType()
 export class Account {
-    @Property("accNo", "string")
+    @Property()
     public accNo: string;
 
-    @Property("name", "string")
+    @Property()
     public name: string;
 
-    @Property("docType", "string")
-    public docType = DocType.Account
+    @Property()
+    public docType: string = DocType.Account;
 
-    @Property("type", "string")
-    public type: AccountType;
+    @Property()
+    public type: string;
 
-    @Property("userId", "number")
+    @Property()
     public userId: number;
 
-    @Property("bal", "number")
-    public bal: number = 0;
+    @Property()
+    public bal: number;
 
-    @Property("status", "string")
-    public status: AccountStatus = AccountStatus.Active;
+    @Property()
+    public status: string = AccountStatus.Active;
 
-    @Property("createdAt", "string")
+    @Property()
     public createdAt: string;
 
-    @Property("updatedAt", "string")
+    @Property()
     public updatedAt: string;
 
-    @Property("transactionLimit", "number")
+    @Property()
     public transactionLimit: number;
 
-    @Property("dailyLimit", "number")
+    @Property()
     public dailyLimit: number;
 
-    @Property("currency", "string")
-    public currency: Currency;
+    @Property()
+    public currency: string;
 
-    constructor(accNo: string, accName: string, userId: number, curr?: Currency, accountType?: AccountType) {
+    constructor(accNo: string, accName: string, userId: number, balance: number, accountType?: string) {
         this.accNo = accNo;
         this.name = accName;
         this.userId = userId;
-        this.currency = curr ? curr : Currency.NGN;
+        this.bal = balance ?? 0;
+        this.currency = Currency.NGN;
         this.type = accountType ?? AccountType.Saving;
         this.transactionLimit = TransactionLimit[this.type];
         this.createdAt = new Date().toISOString();
@@ -92,11 +93,18 @@ export class Account {
         const accNo = assertValue(state.accNo, "Account Number is required");
         const name = assertValue(state.name, "Account Name is required");
         const userId = assertValue(state.userId, "User id is required");
+        const balance = assertValue(state.bal, "Balance is required");
 
-        const account = new Account(accNo, name, userId);
+        const account = new Account(accNo, name, userId, balance);
         Object.assign(account, state);
 
         return account;
+    }
+
+    public toObject(): Account {
+        return {
+            ...this
+        };
     }
 }
 

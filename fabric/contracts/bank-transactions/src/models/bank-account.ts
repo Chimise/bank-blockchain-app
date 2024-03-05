@@ -8,19 +8,19 @@ export enum AllBankAccounts {
 
 @DataType()
 export class BankAccount {
-    @Property("accNo", "string")
+    @Property()
     accNo: string;
 
-    @Property("bal", "number")
+    @Property()
     bal: number;
 
-    @Property("name", "string")
+    @Property()
     name: string;
 
-    @Property("docType", "string")
-    docType = DocType.BankAccount;
+    @Property()
+    docType: string = DocType.BankAccount;
 
-    @Property("createdAt", "string")
+    @Property()
     createdAt: string;
 
     constructor(accNo: string, bal: number, name: string) {
@@ -38,5 +38,9 @@ export class BankAccount {
 
     public addFund(fund: number) {
         this.bal += fund;
+    }
+
+    public toObject(): BankAccount {
+        return { ...this };
     }
 }

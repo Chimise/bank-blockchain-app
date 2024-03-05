@@ -26,34 +26,35 @@ export enum Currency {
 @DataType()
 export class Transaction {
 
-    public type: TransactionType = null;
+    @Property()
+    public type: string = null;
 
-    @Property("id", "string")
+    @Property()
     public id: string;
 
-    @Property("docType", "string")
-    public docType = DocType.Transaction
+    @Property()
+    public docType: string = DocType.Transaction
 
-    @Property("accNo", "string")
+    @Property()
     public from: string;
 
-    @Property("amount", "number")
+    @Property()
     public amount: number;
 
-    @Property("createdAt", "string")
+    @Property()
     public createdAt: string;
 
-    @Property("description", "string")
+    @Property()
     public description: string = "";
 
-    @Property("receiver", "string")
+    @Property()
     public to: string = "";
 
-    @Property("currency", "string")
-    public currency: Currency = Currency.NGN;
+    @Property()
+    public currency: string = Currency.NGN;
 
-    @Property("mode", "string")
-    public mode = TransactionMode.Transfer;
+    @Property()
+    public mode: string = TransactionMode.Transfer;
 
     constructor(id: string, from: string, to: string, amount: number, createdAt?: string) {
         this.id = id;
@@ -91,8 +92,11 @@ export class Transaction {
 
         const transaction = new Transaction(id, senderAccNo, receiverAccNo, amount);
         Object.assign(transaction, state);
-
         return transaction;
+    }
+
+    public toObject(): Transaction {
+        return { ...this };
     }
 }
 
