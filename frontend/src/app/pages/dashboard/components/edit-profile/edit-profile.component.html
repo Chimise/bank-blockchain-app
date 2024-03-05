@@ -18,15 +18,15 @@
                 </div>
                 <div>
                     <label for="dateOfBirth" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Date of Birth</label>
-                    <input type="text" name="dateOfBirth" id="dateOfBirth" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="10/04/2000" disabled />
+                    <input type="text" name="dateOfBirth" id="dateOfBirth" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" disabled />
                 </div>
                 <div>
                     <label for="permanentAddress" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Permanent Address</label>
-                    <input type="text" name="permanentAddress" id="permanentAddress" placeholder="10, Victorial Island, Lagos, Nigeria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
+                    <input type="text" name="permanentAddress" id="permanentAddress" placeholder="{{ user?.permanentAddress }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
                 </div>
                 <div>
                     <label for="postalCode" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Postal Code</label>
-                    <input type="text" name="postalCode" id="postalCode" placeholder="340271" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
+                    <input type="text" name="postalCode" id="postalCode" placeholder="{{ user?.postalCode }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
             <div class="flex flex-col md:w-3/4 mt-6 md:mt-0 space-y-6">
                 <div>
                     <label for="username" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Username</label>
-                    <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="charlessmith" disabled />
+                    <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="{{ user?.username }}" disabled />
                 </div>
                 <!-- <div>
                     <label for="password" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Password</label>
@@ -42,15 +42,15 @@
                 </div> -->
                 <div>
                     <label for="presentAddress" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Present Address</label>
-                    <input type="text" name="presentAddress" id="presentAddress" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="10, Victorial Island, Lagos, Nigeria" disabled />
+                    <input type="text" name="presentAddress" id="presentAddress" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="{{ user?.presentAddress }}" disabled />
                 </div>
                 <div>
                     <label for="city" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">City</label>
-                    <input type="text" name="city" id="city" placeholder="Lagos" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
+                    <input type="text" name="city" id="city" placeholder="{{ user?.city }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
                 </div>
                 <div>
                     <label for="country" class="block mb-2 text-1xl font-medium text-blue-800 dark:text-white">Country</label>
-                    <input type="text" name="country" id="country" placeholder="Nigeria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
+                    <input type="text" name="country" id="country" placeholder="{{ user?.country }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled />
                 </div>
             </div>
         </div>
