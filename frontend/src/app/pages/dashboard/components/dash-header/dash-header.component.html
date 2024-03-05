@@ -1,5 +1,5 @@
 <!-- header.component.html -->
-<header class="header bg-white p-2 lg:pl-12 px-12 border shadow-md">
+<header class="header  p-2 lg:pl-12 px-12 border shadow-md">
     <div class="header-container flex justify-between items-center">
       <!-- Left Side - Account Menu -->
       <div class="flex items-center">
@@ -20,11 +20,20 @@
             <img src="assets/icons/user-image.svg" alt="User Image" class="h-12 w-16 rounded-full">
           </button>
           <!-- Dropdown Menu -->
-          <div *ngIf="showDropdown" class="absolute top-12 right-0 bg-white border border-gray-200 rounded shadow-md mt-2">
+          <div *ngIf="showDropdown" class="dropdown absolute top-12 right-0 bg-white border border-gray-200 rounded shadow-md mt-2">
             <ul class="py-1">
-              <li><a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a></li>
-              <li><a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Settings</a></li>
-              <li><a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a></li>
+              <ng-container *ngFor="let menuItem of userMenuItems">
+              
+                  <li *ngIf="menuItem.name !== 'Logout'">
+                    <a [routerLink]="menuItem.route"  class="block px-4 py-2 text-gray-800 hover:bg-gray-200">{{menuItem.name}}</a>
+                  </li>
+                  <li  *ngIf="menuItem.name === 'Logout'">
+                    <a (click)="logout()"  class="block px-4 py-2 text-gray-800 hover:bg-gray-200">{{menuItem.name}}</a>
+                  </li>
+                  
+              </ng-container>
+
+
             </ul>
           </div>
         </div>

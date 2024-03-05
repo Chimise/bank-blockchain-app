@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { resolve } from '../../utils/index';
 import { Response, User } from '../../models/responses';
+import { Router } from '@angular/router';
 
 const TOKEN_KEY = "x-auth-token";
 
@@ -11,7 +12,8 @@ const TOKEN_KEY = "x-auth-token";
 export class AuthService {
   private token?: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private router: Router) { }
 
   public isAuthenticated(): Promise<boolean> {
     const response = this.httpClient.get<Response<String>>(resolve("/api/profile"), { headers: this.getHeaders() });
@@ -38,6 +40,14 @@ export class AuthService {
 
     return response;
   }
+
+  public logout() {
+
+    this.token = undefined;
+    sessionStorage.removeItem(TOKEN_KEY)
+    this.router.navigate(['/login'])
+  }
+
 
   public setToken(token: string) {
     this.token = token;

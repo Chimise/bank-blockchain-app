@@ -9,21 +9,12 @@ if [ ! -f "install-fabric.sh" ]; then
     chmod +x install-fabric.sh
 fi
 
-directory="bin"
 
-# Check if the directory exists
-if [ ! -d "$directory" ]; then
-    # If it doesn't exist, create it
-    mkdir "$directory"
-fi
+# Install binaries
 
-# Move into the directory
-cd "$directory" || exit
+./install-fabric.sh "binary" "docker"
 
-# Install binaryies 
-$ROOTDIR/install-fabric.sh "binary" "docker"
-
-# Move back to the previous directory
-cd - || exit
+# # Move back to the previous directory
+# cd - || exit
 
 

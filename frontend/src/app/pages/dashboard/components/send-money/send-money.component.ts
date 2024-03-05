@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-send-money',
@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './send-money.component.css'
 })
 export class SendMoneyComponent {
+  @Output() buttonClick = new EventEmitter<void>();
 
+  onButtonClick() {
+    this.buttonClick.emit();
+  }
 }

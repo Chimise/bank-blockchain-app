@@ -2,50 +2,49 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 <div class="login-container">
 
-  
-<body>
-  <div class="blocks-container">
-  <div class="blocks-ad">
-        <h1>Lighting Transactions</h1>
-        <div class="divider"></div>
-        <p>Welcome to the future <br> Blockchain Driven banking</p>
+
+    <body>
+        <div class="blocks-container">
+            <div class="blocks-ad">
+                <h1>Lighting Transactions</h1>
+                <div class="divider"></div>
+                <p>Welcome to the future <br> Blockchain Driven banking</p>
+            </div>
+
+        </div>
+
+        <div class="container">
+            <div class="design">
+                <div class="pill-1 rotate-45"></div>
+                <div class="pill-2 rotate-45"></div>
+                <div class="pill-3 rotate-45"></div>
+                <div class="pill-4 rotate-45"></div>
+            </div>
+            <form class="login" [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+                <img src="./assets/images/FirstBlocks.svg" alt="Logo" class="logo">
+                <h6 class="title">Sign In With Your Account Details</h6>
+                <div class="text-input">
+                    <i class="ri-user-fill"></i>
+                    <input type="text" placeholder="Email" formControlName="email" />
+                </div>
+                <div class="text-input">
+                    <i class="ri-lock-fill"></i>
+                    <input type="password" placeholder="Password" formControlName="password" />
+                </div>
+                <button class="login-btn">LOGIN</button>
+                <a href="#" class="forgot">Forgot Username/Password?</a>
+            </form>
+        </div>
+    </body>
+    <div class="footer-container">
+        <footer class="p-4 bg-gray-800 text-white text-center">
+            <div class="marquee">
+                <p class="marquee-text">For all issues and enquiries, kindly send a mail to
+                    FirstBlocksCustomerCare&#64;firstbanknigeria.com</p>
+            </div>
+
+        </footer>
+
     </div>
 
 </div>
-   
-    <div class="container">
-        <div class="design">
-            <div class="pill-1 rotate-45"></div>
-            <div class="pill-2 rotate-45"></div>
-            <div class="pill-3 rotate-45"></div>
-            <div class="pill-4 rotate-45"></div>
-        </div>
-        <div class="login">
-            <img src="./assets/images/FirstBlocks.svg" alt="Logo" class="logo">
-            <h6 class="title">Sign In With Your Account Details</h6>
-            <div class="text-input">
-                <i class="ri-user-fill"></i>
-                <input type="text" placeholder="Username" />
-            </div>
-            <div class="text-input">
-                <i class="ri-lock-fill"></i>
-                <input type="password" placeholder="Password" />
-            </div>
-            <button class="login-btn">LOGIN</button>
-            <a href="#" class="forgot">Forgot Username/Password?</a>
-        </div>
-    </div>
-</body>
- <div class="footer-container">
-  <footer class="p-4 bg-gray-800 text-white text-center">
-        <div class="marquee">
-            <p class="marquee-text">For all issues and enquiries, kindly send a mail to
-                FirstBlocksCustomerCare&#64;firstbanknigeria.com</p>
-        </div>
-
-    </footer>
-  
- </div>
-
-</div>
-

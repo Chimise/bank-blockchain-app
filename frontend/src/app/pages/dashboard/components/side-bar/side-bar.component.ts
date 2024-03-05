@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ContainerComponent } from '../../../../components/container/container.component';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MenuItem } from '../../model/menu';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -14,18 +15,27 @@ import { MenuItem } from '../../model/menu';
 export class SideBarComponent implements OnInit{
   isOpen: boolean = true;
   menus: MenuItem[] = [
-    { name: 'Account', route: '/account', icon: 'credit-card'},
-    { name: 'History', route: '/history', icon: 'payment'},
-    { name: 'Profile', route: '/profile', icon: 'user'},
-    { name: 'Logout', route: '/logout', icon: 'logout'}
+    { name: 'Account', route: './account', icon: 'credit-card'},
+    { name: 'History', route: './history', icon: 'payment'},
+    { name: 'Profile', route: './profile', icon: 'user'},
+    { name: 'Logout', route: './logout', icon: 'logout'}
   ];
 
   
-  constructor() {}
 
-  ngOnInit(): void {
-    
+  constructor(private authService: AuthService,
+    private router: Router) {}
+
+  ngOnInit(): void {}
+
+  logout(): void {
+    this.authService.logout();
   }
+
+  isActive(routePath: string): boolean {
+    return this.router.url.includes(routePath);
+  }
+  
 
   toggleSidebar(): void {
     this.isOpen = !this.isOpen;

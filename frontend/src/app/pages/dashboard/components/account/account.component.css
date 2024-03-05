@@ -1,3 +1,30 @@
 .account {
-    background-color: rgba(245, 247, 250, 1);
+    margin-right: -26px;
+
 }
+
+.blur-effect {
+    filter: blur(8px);
+}
+:host {
+    position: relative;
+}
+
+app-sendmoney-popup, app-otp-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 10;
+}
+
+app-sendmoney-popup {
+    width: 42%;
+}
+
+.history{
+    margin-bottom: -300px;
+    margin-left: -60px;
+   
+}
+
