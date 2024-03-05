@@ -1,3 +1,8 @@
     :host {
     background-color: transparent;
   }
+
+  .send{
+    margin-bottom: 90px;
+    margin-left: 10px;
+  }
