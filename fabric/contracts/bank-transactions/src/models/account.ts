@@ -1,11 +1,12 @@
 import { Object as DataType, Property } from 'fabric-contract-api';
 import { assertValue } from "../utils";
 import { Currency } from './transaction';
+import { DocType } from './doctype';
 
 export enum AccountType {
-    Saving = "saving",
-    Current = "current",
-    Fixed = "fixed-deposit"
+    Saving = "Saving",
+    Current = "Current",
+    Fixed = "Fixed"
 }
 
 export enum AccountStatus {
@@ -16,55 +17,64 @@ export enum AccountStatus {
 }
 
 export enum TransactionLimit {
-    New = 10000,
-    Saving = 20000,
-    Current = 50000,
-    Fixed = 500000
+    Saving = 10000000,
+    Current = 50000000,
+    Fixed = 50000000
 }
+
+const DAILY_LIMIT = 100000000;
 
 
 
 @DataType()
 export class Account {
-    @Property("accNo", "string")
+    @Property()
     public accNo: string;
 
-    @Property("name", "string")
+    @Property()
     public name: string;
 
-    @Property("userId", "string")
-    public userId: string;
+    @Property()
+    public docType: string = DocType.Account;
 
-    @Property("bal", "number")
-    public bal: number = 0;
+    @Property()
+    public type: string;
 
-    @Property("status", "string")
-    public status: AccountStatus = AccountStatus.Active;
+    @Property()
+    public userId: number;
 
-    @Property("createdAt", "string")
+    @Property()
+    public bal: number;
+
+    @Property()
+    public status: string = AccountStatus.Active;
+
+    @Property()
     public createdAt: string;
 
-    @Property("updatedAt", "string")
+    @Property()
     public updatedAt: string;
 
-    @Property("transactionLimit", "number")
+    @Property()
     public transactionLimit: number;
 
-    @Property("dailyLimit", "number")
+    @Property()
     public dailyLimit: number;
 
-    @Property("currency", "string")
-    public currency: Currency;
+    @Property()
+    public currency: string;
 
-    constructor(accNo: string, accName: string, userId: string, curr?: Currency) {
+    constructor(accNo: string, accName: string, userId: number, balance: number, accountType?: string) {
         this.accNo = accNo;
         this.name = accName;
         this.userId = userId;
-        this.currency = curr ? curr : Currency.NGN;
+        this.bal = balance ?? 0;
+        this.currency = Currency.NGN;
+        this.type = accountType ?? AccountType.Saving;
+        this.transactionLimit = TransactionLimit[this.type];
         this.createdAt = new Date().toISOString();
         this.updatedAt = new Date().toISOString();
-        this.transactionLimit = TransactionLimit.New;
-        this.dailyLimit = 200000;
+        this.dailyLimit = DAILY_LIMIT;
     }
 
     public setBalance(bal: number) {
@@ -83,25 +93,19 @@ export class Account {
         const accNo = assertValue(state.accNo, "Account Number is required");
         const name = assertValue(state.name, "Account Name is required");
         const userId = assertValue(state.userId, "User id is required");
+        const balance = assertValue(state.bal, "Balance is required");
 
-        const account = new Account(accNo, name, userId, state.currency);
-        if (state.bal) {
-            account.setBalance(state.bal);
-        }
-
-        if (state.dailyLimit) {
-            account.setDailyLimit(state.dailyLimit);
-        }
-
-        if (state.transactionLimit) {
-            account.setTransactionLimit(state.transactionLimit);
-        }
+        const account = new Account(accNo, name, userId, balance);
+        Object.assign(account, state);
 
         return account;
     }
 
-
-
+    public toObject(): Account {
+        return {
+            ...this
+        };
+    }
 }
 
 
