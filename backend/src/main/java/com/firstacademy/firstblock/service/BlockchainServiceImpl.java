@@ -3,12 +3,25 @@ package com.firstacademy.firstblock.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.hyperledger.fabric.client.Contract;
+import org.hyperledger.fabric.client.Gateway;
+import org.hyperledger.fabric.client.Network;
+import org.hyperledger.fabric.client.Transaction;
+import org.hyperledger.fabric.client.EventHub;
+import org.hyperledger.fabric.client.EventListener;
+
 
 @Service
 public class BlockchainServiceImpl implements BlockchainService {
 
     @Autowired
     private Contract contract;
+    private Gateway gateway;
+
+    private String channelName = "OUR_CHANNEL";
+
+    private Network getNetwork() throws Exception {
+        return gateway.getNetwork(channelName);
+    }
 
     @Override
     public String invokeQuery(String functionName, String... args) throws Exception {
@@ -57,13 +70,6 @@ public class BlockchainServiceImpl implements BlockchainService {
     }
 
     @Override
-    public void transferFunds(int senderUserId, String transactionId, String senderAccNo, String recieverAccNo,
-            int amount, String narration, String timestamp) throws Exception {
-        invokeTxn("TransferFunds", String.valueOf(senderUserId), transactionId, senderAccNo, recieverAccNo,
-                String.valueOf(amount), narration, timestamp);
-    }
-
-    @Override
     public String readTransaction(String transactionId) throws Exception {
         return invokeQuery("ReadTransaction", transactionId);
     }
@@ -76,6 +82,29 @@ public class BlockchainServiceImpl implements BlockchainService {
     @Override
     public String readUserAccounts(int userId) throws Exception {
         return invokeQuery("ReadUserAccounts", String.valueOf(userId));
+    }
+
+    private void registerTransferFundsEventListener(Transaction transaction) {
+        
+        Network network = getNetwork();
+
+        EventHub eventHub = network.getEventHub();
+        
+        String eventName = "TransferFundsEvent";
+        EventListener eventListener = event -> {
+            System.out.println("Transfer event received: " + event.payloadAsString());
+        };
+        eventHub.registerEventListener(eventName, eventListener);
+    }
+
+    @Override
+    public void transferFunds(int senderUserId, String transactionId, String senderAccNo, String recieverAccNo,
+            int amount, String narration, String timestamp) throws Exception {
+
+        contract.submitTransaction("TransferFunds",
+                String.valueOf(senderUserId), transactionId,
+                senderAccNo, recieverAccNo, String.valueOf(amount),
+                narration, timestamp);
     }
 
 }

@@ -23,4 +23,5 @@ public interface BlockchainService {
     String readTransactionHistory(String accNo) throws Exception;
     
     String readUserAccounts(int userId) throws Exception;
+
 }
