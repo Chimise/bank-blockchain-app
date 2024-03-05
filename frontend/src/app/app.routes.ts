@@ -19,15 +19,16 @@ export const routes: Routes = [
     children: [
       { path: 'account', component: AccountComponent },
       {path: 'history', component: TransactionHistoryComponent},
+      {path: 'profile', component: EditProfileComponent },
       { path: '', redirectTo: '/dashboard/account', pathMatch: 'full' },
     ],
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
-  {
-    component: EditProfileComponent,
-    path: 'profile',
-    canActivate: [authGuard],
-  },
+  // {
+  //   component: EditProfileComponent,
+  //   path: 'profile',
+  //   // canActivate: [authGuard],
+  // },
   {
     component: HomepageComponent,
     path: '',

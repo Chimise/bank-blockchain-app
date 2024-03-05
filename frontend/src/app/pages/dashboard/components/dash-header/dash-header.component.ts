@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   showNotifications: boolean = false;
 
   userMenuItems = [
-    { name: 'Profile', route: '/profile' },
+    { name: 'Profile', route: '/dashboard/profile' },
     { name: 'Settings', route: '/settings' },
     { name: 'Logout', route: '/logout' }
   ];
