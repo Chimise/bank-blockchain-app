@@ -4,6 +4,8 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.firstacademy.firstblock.dto.model.AccountDto;
+
 import org.hyperledger.fabric.client.Gateway;
 import org.hyperledger.fabric.client.Contract;
 
@@ -15,14 +17,13 @@ public class BlockchainServiceImpl implements BlockchainService {
 
     @Override
     public String invokeQuery(String functionName, String... args) throws Exception {
-    
+        // ... existing code ...
     }
 
     @Override
-    public String invokeTxn(String functionName, String... args) throws Exception {
-        
+    public void invokeTxn(String functionName, String... args) throws Exception {
+        // ... existing code ...
     }
-
 
     @Override
     public String initLedger() throws Exception {
@@ -30,10 +31,8 @@ public class BlockchainServiceImpl implements BlockchainService {
     }
 
     @Override
-    public Account createAccount(int userId, String accNo, String accountName, int initialBalance) throws Exception {
-        String response = invokeTxn("CreateAccount", String.valueOf(userId), accNo, accountName, String.valueOf(initialBalance));
-        // Parse response to Account object
-        return parseAccount(response);
+    public void createAccount(int userId, String accNo, String accountName, int initialBalance) throws Exception {
+        invokeTxn("CreateAccount", String.valueOf(userId), accNo, accountName, String.valueOf(initialBalance));
     }
 
     @Override
@@ -43,10 +42,8 @@ public class BlockchainServiceImpl implements BlockchainService {
     }
 
     @Override
-    public Account updateAccount(int userId, String accNo, String name, String type, String status) throws Exception {
-        String response = invokeTxn("UpdateAccount", String.valueOf(userId), accNo, name, type, status);
-        // Parse response to Account object
-        return parseAccount(response);
+    public void updateAccount(int userId, String accNo, String name, String type, String status) throws Exception {
+        invokeTxn("UpdateAccount", String.valueOf(userId), accNo, name, type, status);
     }
 
     @Override
@@ -67,11 +64,5 @@ public class BlockchainServiceImpl implements BlockchainService {
     @Override
     public String readTransactionHistory(String accNo) throws Exception {
         return invokeQuery("ReadTransactionHistory", accNo);
-    }
-
-    private Account parseAccount(String response) throws Exception {
-        // Implement logic to parse the JSON response and create an Account object
-        // Use a library like Gson or Jackson for better parsing
-        throw new UnsupportedOperationException("Account parsing not implemented yet");
     }
 }
