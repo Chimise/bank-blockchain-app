@@ -1,28 +1,33 @@
 package com.firstacademy.firstblock.service;
 
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.firstacademy.firstblock.dto.model.AccountDto;
-
-import org.hyperledger.fabric.client.Gateway;
 import org.hyperledger.fabric.client.Contract;
 
 @Service
 public class BlockchainServiceImpl implements BlockchainService {
 
     @Autowired
-    private Gateway gateway;
+    private Contract contract;
 
     @Override
     public String invokeQuery(String functionName, String... args) throws Exception {
-        // ... existing code ...
+        try {
+            byte[] responseBytes = contract.evaluateTransaction(functionName, args);
+            return new String(responseBytes);
+        } catch (Exception e) {
+            throw new Exception("Query failed: " + e.getMessage());
+        }
     }
 
     @Override
-    public void invokeTxn(String functionName, String... args) throws Exception {
-        // ... existing code ...
+    public String invokeTxn(String functionName, String... args) throws Exception {
+        try {
+            contract.submitTransaction(functionName, args);
+            return "Transaction Submitted Successfully!";
+        } catch (Exception e) {
+            throw new Exception("Transaction failed: " + e.getMessage());
+        }
     }
 
     @Override
@@ -52,8 +57,10 @@ public class BlockchainServiceImpl implements BlockchainService {
     }
 
     @Override
-    public void transferFunds(int senderUserId, String transactionId, String senderAccNo, String recieverAccNo, int amount, String narration, String timestamp) throws Exception {
-        invokeTxn("TransferFunds", String.valueOf(senderUserId), transactionId, senderAccNo, recieverAccNo, String.valueOf(amount), narration, timestamp);
+    public void transferFunds(int senderUserId, String transactionId, String senderAccNo, String recieverAccNo,
+            int amount, String narration, String timestamp) throws Exception {
+        invokeTxn("TransferFunds", String.valueOf(senderUserId), transactionId, senderAccNo, recieverAccNo,
+                String.valueOf(amount), narration, timestamp);
     }
 
     @Override
@@ -65,4 +72,10 @@ public class BlockchainServiceImpl implements BlockchainService {
     public String readTransactionHistory(String accNo) throws Exception {
         return invokeQuery("ReadTransactionHistory", accNo);
     }
+
+    @Override
+    public String readUserAccounts(int userId) throws Exception {
+        return invokeQuery("ReadUserAccounts", String.valueOf(userId));
+    }
+
 }

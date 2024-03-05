@@ -4,7 +4,7 @@ public interface BlockchainService {
 
     String invokeQuery(String functionName, String... args) throws Exception;
 
-    void invokeTxn(String functionName, String... args) throws Exception;
+    String invokeTxn(String functionName, String... args) throws Exception;
 
     String initLedger() throws Exception;
 
@@ -22,4 +22,5 @@ public interface BlockchainService {
 
     String readTransactionHistory(String accNo) throws Exception;
     
+    String readUserAccounts(int userId) throws Exception;
 }
