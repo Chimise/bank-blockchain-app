@@ -3,7 +3,7 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { EditProfileComponent } from './pages/dashboard/components/edit-profile/edit-profile.component';
 import { AccountComponent } from './pages/dashboard/components/account/account.component';
 import { authGuard } from './guard/auth/auth.guard';
 import { TransactionHistoryComponent } from './pages/dashboard/components/transaction-history/transaction-history.component';

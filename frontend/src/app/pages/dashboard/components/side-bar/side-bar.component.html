@@ -9,6 +9,7 @@
     <!-- Menu Items-->
     <nav class="flex-1">
         <ul class="space-y-2">
+
             <ng-container *ngFor="let menu of menus">
                 <li *ngIf="menu.name !== 'Logout'">
                     <a [routerLink]="menu.route" class="flex justify-start text-white text-xl items-center p-4 hover:bg-yellow-500 hover:rounded" style="color: #1E3F65;">
@@ -27,6 +28,7 @@
                     </a>
                 </li>
             </ng-container>
+
         </ul>
     </nav>
 </aside>
