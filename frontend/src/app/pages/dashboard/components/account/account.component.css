@@ -1,5 +1,6 @@
 .account {
-    background-color: rgb(224, 227, 238);
+    margin-right: -26px;
+
 }
 
 .blur-effect {
@@ -20,3 +21,10 @@ app-sendmoney-popup, app-otp-page {
 app-sendmoney-popup {
     width: 42%;
 }
+
+.history{
+    margin-bottom: -300px;
+    margin-left: -60px;
+   
+}
+
