@@ -6,6 +6,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { AccountComponent } from './pages/dashboard/components/account/account.component';
 import { authGuard } from './guard/auth/auth.guard';
+import { TransactionHistoryComponent } from './pages/dashboard/components/transaction-history/transaction-history.component';
 
 export const routes: Routes = [
   {
@@ -17,14 +18,15 @@ export const routes: Routes = [
     path: 'dashboard',
     children: [
       { path: 'account', component: AccountComponent },
+      {path: 'history', component: TransactionHistoryComponent},
       { path: '', redirectTo: '/dashboard/account', pathMatch: 'full' },
     ],
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     component: EditProfileComponent,
     path: 'profile',
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     component: HomepageComponent,

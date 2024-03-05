@@ -3,6 +3,7 @@ import { ContainerComponent } from '../../../../components/container/container.c
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MenuItem } from '../../model/menu';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -21,10 +22,12 @@ export class SideBarComponent implements OnInit{
   ];
 
   
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {}
+
+  logout(): void {
+    this.authService.logout();
   }
 
   toggleSidebar(): void {
