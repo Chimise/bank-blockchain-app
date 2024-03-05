@@ -6,9 +6,9 @@ import { FooterComponent } from '../../components/footer/footer.component';
   selector: 'app-contact',
   standalone: true,
   imports: [HeaderComponent, FooterComponent],
-  templateUrl: './contact.component.html',
-  styleUrl: './contact.component.css'
+  templateUrl: './legal.component.html',
+  styleUrl: './legal.component.css'
 })
-export class ContactComponent {
+export class LegalComponent {
 
 }

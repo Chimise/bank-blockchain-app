@@ -8,7 +8,7 @@ import { AccountComponent } from './pages/dashboard/components/account/account.c
 import { authGuard } from './guard/auth/auth.guard';
 import { AboutComponent } from './pages/about/about.component';
 import { ServiceComponent } from './pages/service/service.component';
-import { ContactComponent } from './pages/contact/contact.component';
+import { LegalComponent } from './pages/legal/legal.component';
 
 export const routes: Routes = [
   {
@@ -38,8 +38,8 @@ export const routes: Routes = [
     path: 'services'
   },
   {
-    component: ContactComponent,
-    path: 'contact'
+    component: LegalComponent,
+    path: 'legal'
   },
   {
     component: HomepageComponent,
