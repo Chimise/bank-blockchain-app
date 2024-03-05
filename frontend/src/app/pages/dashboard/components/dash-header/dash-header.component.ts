@@ -3,6 +3,7 @@ import { ContainerComponent } from '../../../../components/container/container.c
 import { NavlinkComponent } from '../../../../components/navlink/navlink.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,14 +17,18 @@ export class HeaderComponent implements OnInit {
   showNotifications: boolean = false;
 
   userMenuItems = [
-    { name: 'Profile', route: '/profile' },
+    { name: 'Profile', route: '/dashboard/profile' },
     { name: 'Settings', route: '/settings' },
     { name: 'Logout', route: '/logout' }
   ];
 
-  constructor() { }
+  constructor(private authservice: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  logout(): void {
+    this.authservice.logout();
   }
 
   toggleDropdown(): void {
