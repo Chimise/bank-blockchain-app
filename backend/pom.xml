@@ -96,6 +96,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.hyperledger.fabric</groupId>
+			<artifactId>fabric-gateway</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty-shaded</artifactId>
+			<version>1.59.0</version>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
