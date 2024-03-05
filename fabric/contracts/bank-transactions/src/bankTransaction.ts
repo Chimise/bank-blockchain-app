@@ -179,6 +179,28 @@ export class BankTransactionContract extends Contract {
         return toJSON(results);
     }
 
+    @Transaction(false)
+    @Returns("string")
+    public async ReadUserAccounts(ctx: Context, userId: number) {
+        const iterator = await ctx.stub.getStateByRange('', '');
+        const accounts: Account[] = [];
+        let result = await iterator.next();
+        while (!result.done) {
+            const document = unmarshal<{ docType: DocType }>(result.value.value);
+            if (document.docType === DocType.Account) {
+                const account = Account.create(document);
+                if (account.userId === userId) {
+                    accounts.push(account);
+                }
+            }
+
+            result = await iterator.next();
+        }
+
+        await iterator.close()
+        return JSON.stringify(accounts);
+    }
+
 
     async #isDailyLimitExceeded(ctx: Context, senderAccNo: string, timestamp: string, dailyLimit: number) {
         const date = getDateFromISO(timestamp);
