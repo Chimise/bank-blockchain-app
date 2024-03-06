@@ -39,7 +39,7 @@ public class DateUtils {
 
     public static String currentDateIso() {
         LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
         return currentDate.format(formatter);
     }
 
