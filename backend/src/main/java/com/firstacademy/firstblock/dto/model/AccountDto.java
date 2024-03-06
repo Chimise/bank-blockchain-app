@@ -10,9 +10,16 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class AccountDto {
-
-    private int userId;
     private String accNo;
-    private String accountName;
-    private int initialBalance;
+    private int bal;
+    private String createdAt;
+    private String currency;
+    private long dailyLimit;
+    private String docType;
+    private String name;
+    private String status;
+    private long transactionLimit;
+    private String type;
+    private String updatedAt;
+    private long userId;
 }
