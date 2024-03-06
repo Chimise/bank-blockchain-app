@@ -25,8 +25,13 @@ export const routes: Routes = [
       {path: 'profile', component: EditProfileComponent },
       { path: '', redirectTo: '/dashboard/account', pathMatch: 'full' },
     ],
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
+
+  {
+    path: 'settings', 
+  redirectTo: '/dashboard/profile',
+ },
   // {
   //   component: EditProfileComponent,
   //   path: 'profile',

@@ -38,6 +38,19 @@ export class OtpPageComponent implements OnInit {
     }
 }
 
+keytab(event: any){
+  let nextInput = event.srcElement.nextElementSibling; // get the sibling element
+
+  var target = event.target || event.srcElement;
+  var id = target.id
+  console.log(id.maxlength); // prints undefined
+
+  if(nextInput == null)  // check the maxLength from here
+      return;
+  else
+      nextInput.focus();   // focus if not null
+}
+
 closeButtonClicked() {
   this.closeNewModal.emit();
 }
