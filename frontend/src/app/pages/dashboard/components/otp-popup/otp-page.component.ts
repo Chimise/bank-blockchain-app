@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { User } from '../../../../models/responses';
+import { UserService } from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-otp-page',
@@ -13,12 +15,28 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class OtpPageComponent implements OnInit {
   otpInput: FormGroup = new FormGroup({});
+  user: User | undefined
 
   @Output() closeNewModal = new EventEmitter<void>();
 
-  constructor(private otpForm: FormBuilder){
+  constructor(private otpForm: FormBuilder, private userService: UserService){
 
   }
+
+  async OnInit(): Promise<void> {
+    try {
+      const isAuthenticated = await this.userService.getUser();
+
+      if (isAuthenticated) {
+        this.user = await this.userService.getUser();
+      } else {
+        console.log('User is not authenticated');
+        
+      }
+    } catch (error) {
+      console.error('Error retrieving user:', error);
+    }
+}
   ngOnInit(): void {
     this.otpInput = this.otpForm.group({
 

@@ -12,6 +12,7 @@ const TOKEN_KEY = "x-auth-token";
 export class AuthService {
   private token?: string;
   private user?: User;
+  private receiverDetails?: any;
 
   constructor(private httpClient: HttpClient,
     private router: Router) { }
@@ -40,6 +41,19 @@ export class AuthService {
     }
 
     return null;
+  }
+
+  public getReceiverDetails(): any {
+    return this.receiverDetails; // Return receiverDetails
+  }
+
+  public async fetchReceiverDetails() {
+    try {
+      const response = await this.httpClient.get<any>(resolve("/api/receiver-details"), { headers: this.getHeaders() });
+      this.receiverDetails = response; // Store receiverDetails
+    } catch (error) {
+      console.error('Error retrieving receiver details:', error);
+    }
   }
 
   public login(email: string, password: string) {
