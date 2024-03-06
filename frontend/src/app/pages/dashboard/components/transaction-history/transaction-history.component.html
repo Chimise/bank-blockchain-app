@@ -11,7 +11,7 @@
             <div class="type content-center w-2/12">{{ transaction.type }}</div>
             <div class="id content-center w-3/12">{{ transaction.id }}</div>
             <div class="amount content-center w-2/12" [ngStyle]="{'color': transaction.amount > 0 ? 'green' : 'red'}">
-              {{ transaction.amount > 0 ? '+' : '' }}{{ transaction.amount | currency }}
+              {{ transaction.amount > 0 ? '+' : '' }}{{ transaction.amount | currency:'₦':'symbol':'1.2-2':'en-NG' }}
             </div>
           </div>
       }
