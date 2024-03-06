@@ -25,7 +25,7 @@
             name="name"
             id="name"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            placeholder="Charles Smith"
+            placeholder="{{ user?.firstName }} {{ user?.lastName }}"
             disabled
           />
         </div>
@@ -39,7 +39,7 @@
             type="email"
             name="email"
             id="email"
-            placeholder="charlessmith@gmail.com"
+            placeholder="{{ user?.email }}"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             disabled
           />
@@ -55,7 +55,7 @@
             name="dateOfBirth"
             id="dateOfBirth"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            placeholder="10/04/2000"
+            placeholder=""
             disabled
           />
         </div>
@@ -69,7 +69,7 @@
             type="text"
             name="permanentAddress"
             id="permanentAddress"
-            placeholder="10, Victoria Island, Lagos, Nigeria"
+            placeholder="{{ user?.permanentAddress }}"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             disabled
           />
@@ -84,7 +84,7 @@
             type="text"
             name="postalCode"
             id="postalCode"
-            placeholder="340271"
+            placeholder="{{ user?.postalCode }}"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             disabled
           />
@@ -104,11 +104,11 @@
             name="username"
             id="username"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            placeholder="charlessmith"
+            placeholder="{{ user?.username }}"
             disabled
           />
         </div>
-        <div>
+        <!-- <div>
           <label
             for="password"
             class="block mb-2 text-1xl font-medium text-blue-800 dark:text-black"
@@ -122,7 +122,7 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-black"
             disabled
           />
-        </div>
+        </div> -->
         <div>
           <label
             for="presentAddress"
@@ -134,7 +134,7 @@
             name="presentAddress"
             id="presentAddress"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-black"
-            placeholder="10, Victoria Island, Lagos, Nigeria"
+            placeholder="{{ user?.presentAddress }}"
             disabled
           />
         </div>
@@ -148,7 +148,7 @@
             type="text"
             name="city"
             id="city"
-            placeholder="Lagos"
+            placeholder="{{ user?.city }}"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             disabled
           />
@@ -163,7 +163,7 @@
             type="text"
             name="country"
             id="country"
-            placeholder="Nigeria"
+            placeholder="{{ user?.country }}"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-black"
             disabled
           />

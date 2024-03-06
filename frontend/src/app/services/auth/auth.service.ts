@@ -11,15 +11,17 @@ const TOKEN_KEY = "x-auth-token";
 })
 export class AuthService {
   private token?: string;
+  private user?: User;
 
   constructor(private httpClient: HttpClient,
     private router: Router) { }
 
   public isAuthenticated(): Promise<boolean> {
-    const response = this.httpClient.get<Response<String>>(resolve("/api/profile"), { headers: this.getHeaders() });
+    const response = this.httpClient.get<Response<User>>(resolve("/api/profile"), { headers: this.getHeaders() });
     return new Promise((res, rej) => {
       const subscriber = response.subscribe({
-        next() {
+        next: (response) => {
+          this.user = response.payload;
           res(true)
         },
         error() {
@@ -30,6 +32,14 @@ export class AuthService {
         }
       })
     })
+  }
+
+  public getUser() {
+    if(this.user) {
+      return this.user;
+    }
+
+    return null;
   }
 
   public login(email: string, password: string) {

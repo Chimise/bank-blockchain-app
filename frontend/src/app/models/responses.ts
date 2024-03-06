@@ -4,6 +4,13 @@ export interface User {
     isAdmin: boolean;
     firstName: string;
     lastName: string;
+    username: string;
+    presentAddress: string;
+    permanentAddress: string;
+    city: string;
+    country: string;
+    postalCode: string;
+    phoneNumber: string;
 }
 
 
