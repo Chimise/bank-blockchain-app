@@ -3,9 +3,6 @@ package com.firstacademy.firstblock.service;
 import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import com.firstacademy.firstblock.dto.model.UserDto;
 
 import jakarta.servlet.http.HttpServletResponse;
 

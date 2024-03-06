@@ -13,7 +13,6 @@ import org.hyperledger.fabric.client.identity.Identity;
 import org.hyperledger.fabric.client.identity.Signer;
 import org.hyperledger.fabric.client.identity.Signers;
 import org.hyperledger.fabric.client.identity.X509Identity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -29,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class HyperledgerConfig {
+	private Environment environment;
 	private String MSP_ID;
 	private String CHANNEL_NAME;
 	private String CHAINCODE_NAME;
@@ -41,12 +41,19 @@ public class HyperledgerConfig {
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public HyperledgerConfig(Environment environment) {
-		String rootDir = this.findRootDirectory();
-		if (rootDir == null) {
-			throw new Error("Pom.xml file does not exist");
+		this.environment = environment;
+		if (isDocker()) {
+			CRYPTO_PATH = Paths.get("/app/fabric/org1.example.com");
+		} else {
+			String rootDir = this.findRootDirectory();
+			if (rootDir == null) {
+				throw new Error("Pom.xml file does not exist");
+			}
+
+			CRYPTO_PATH = Paths.get(rootDir)
+					.resolve("../fabric/network/organizations/peerOrganizations/org1.example.com");
 		}
 
-		CRYPTO_PATH = Paths.get(rootDir).resolve("../fabric/network/organizations/peerOrganizations/org1.example.com");
 		MSP_ID = environment.getProperty("hyperledger.fabric.org.msp");
 		CHANNEL_NAME = environment.getProperty("hyperledger.fabric.org.channel");
 		CHAINCODE_NAME = environment.getProperty("hyperledger.fabric.org.cc-name");
@@ -80,17 +87,7 @@ public class HyperledgerConfig {
 		} catch (Exception e) {
 			System.err.println("Could not connect to gateway");
 			throw new RuntimeException(e.getMessage());
-			// TODO: handle exception
 		}
-
-		// try (var gateway = builder.connect()) {
-		// return gateway;
-		// } catch (Exception err) {
-		// System.err.println(err);
-		// throw err;
-		// } finally {
-		// channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
-		// }
 
 	}
 
@@ -140,5 +137,9 @@ public class HyperledgerConfig {
 		}
 
 		return null;
+	}
+
+	private boolean isDocker() {
+		return environment.getProperty("HOSTNAME") != null;
 	}
 }
