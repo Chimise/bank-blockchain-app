@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -11,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,9 +20,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.firstacademy.firstblock.dto.response.Response;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -49,8 +56,7 @@ public class MultiHttpSecurityConfig {
                                 .csrf(csrf -> csrf.disable())
                                 .formLogin(form -> form.disable())
                                 .logout(ctx -> ctx.disable())
-                                .exceptionHandling(exp -> exp.authenticationEntryPoint(
-                                                (req, res, e) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED)))
+                                .exceptionHandling(exp -> exp.authenticationEntryPoint(this::handleAuthenticationError))
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authorizeHttpRequests((authorize) -> authorize
@@ -85,4 +91,23 @@ public class MultiHttpSecurityConfig {
                 source.registerCorsConfiguration("/**", configuration);
                 return source;
         }
+
+        public void handleAuthenticationError(HttpServletRequest request, HttpServletResponse response,
+                        AuthenticationException authException)
+                        throws IOException, ServletException {
+
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+                Response<Object> responseObj = Response.unauthorized();
+                responseObj.addErrorMsgToResponse("An error occurred, could not log in", authException);
+
+                final ObjectMapper mapper = new ObjectMapper();
+                try {
+                        mapper.writeValue(response.getOutputStream(), responseObj);
+                } catch (Exception e) {
+                        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                }
+        }
+
 }
