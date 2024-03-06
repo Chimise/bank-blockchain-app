@@ -64,6 +64,12 @@ public class TransactionController {
         return Response.ok().setPayload(transactionHistory);
     }
 
+    @GetMapping("/{transactionId}")
+    public Response<?> getTransactionDetails(@PathVariable("transactionId") String transactionId) throws Exception {
+        TransactionDto transaction = blockchainService.readTransaction(transactionId);
+        return Response.ok().setPayload(transaction);
+    }
+
     private String getErrorMessage(BindingResult bindingResult) {
         StringBuilder errorMessage = new StringBuilder();
         for (FieldError error : bindingResult.getFieldErrors()) {
