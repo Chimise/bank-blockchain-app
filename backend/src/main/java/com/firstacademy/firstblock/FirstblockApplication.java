@@ -26,143 +26,147 @@ public class FirstblockApplication {
 	public CommandLineRunner dataLoader(UserRepository userRepo, RoleRepository roleRepo,
 			PasswordEncoder passwordEncoder, BlockchainService blockchainService) {
 		return args -> {
-			roleRepo.deleteAll();
+			Role admin = roleRepo.findByRole(UserRoles.ADMIN);
+			if (admin == null) {
+				admin = roleRepo.save(new Role().setRole(UserRoles.ADMIN));
+			}
 
-			Role admin = roleRepo.save(new Role().setRole(UserRoles.ADMIN));
-			Role user = roleRepo.save(new Role().setRole(UserRoles.USER));
+			Role userRole = roleRepo.findByRole(UserRoles.USER);
 
-			userRepo.deleteAll();
+			if (userRole == null) {
+				userRole = roleRepo.save(new Role().setRole(UserRoles.USER));
+			}
 
-			userRepo.save(new User()
-					.setEmail("chimisepro@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(admin))
-					.setFirstName("Chisom").setLastName("Promise"))
-					// .setDateOfBirth("05.06.1996")
-					.setCountry("Nigeria")
-					.setCity("Lagos")
-					.setPhoneNumber("08198456723")
-					.setUsername("chimisepro")
-					.setPermanentAddress("10, Victorial Island")
-					.setPresentAddress("10, Victorial Island")
-					.setPostalCode("340271");
+			User user1 = userRepo.findByEmail("chimisepro@gmail.com");
+			if (user1 == null) {
+				user1 = userRepo.save(new User()
+						.setEmail("chimisepro@gmail.com")
+						.setPassword(passwordEncoder.encode("password123"))
+						.setRoles(Arrays.asList(admin))
+						.setFirstName("Chisom").setLastName("Promise"))
+						// .setDateOfBirth("05.06.1996")
+						.setCountry("Nigeria")
+						.setCity("Lagos")
+						.setPhoneNumber("08198456723")
+						.setUsername("chimisepro")
+						.setPermanentAddress("10, Victorial Island")
+						.setPresentAddress("10, Victorial Island")
+						.setPostalCode("340271");
+			}
 
-			userRepo.save(new User()
-					.setEmail("ngooziokafor2@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(user))
-					.setFirstName("Ngozi").setLastName("Okafor")
-					.setCountry("Nigeria")
-					.setCity("Abuja")
-					.setPhoneNumber("08198456723")
-					.setUsername("ngooziokafor2")
-					.setPermanentAddress("47, Abuja Street")
-					.setPresentAddress("47, Abuja Street")
-					.setPostalCode("567893"));
+			User user2 = userRepo.findByEmail("ngooziokafor2@gmail.com");
+			if (user2 == null) {
+				userRepo.save(new User()
+						.setEmail("ngooziokafor2@gmail.com")
+						.setPassword(passwordEncoder.encode("password123"))
+						.setRoles(Arrays.asList(userRole))
+						.setFirstName("Ngozi").setLastName("Okafor")
+						.setCountry("Nigeria")
+						.setCity("Abuja")
+						.setPhoneNumber("08198456723")
+						.setUsername("ngooziokafor2")
+						.setPermanentAddress("47, Abuja Street")
+						.setPresentAddress("47, Abuja Street")
+						.setPostalCode("567893"));
+			}
 
-			userRepo.save(new User()
-					.setEmail("emeka.yakubu3@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(user))
-					.setFirstName("Emeka").setLastName("Yakubu")
-					.setCountry("Nigeria")
-					.setCity("Kano")
-					.setPhoneNumber("08198456723")
-					.setUsername("emekayakubu3")
-					.setPermanentAddress("21, Kano Road")
-					.setPresentAddress("21, Kano Road")
-					.setPostalCode("240271"));
+			User user3 = userRepo.findByEmail("abdullahi.ibrahim5@gmail.com");
 
-			userRepo.save(new User()
-					.setEmail("olamide.adewale4@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(user))
-					.setFirstName("Olamide").setLastName("Adewale")
-					.setCountry("Nigeria")
-					.setCity("Ibadan")
-					.setPhoneNumber("08198456723")
-					.setUsername("olamideadewale4")
-					.setPermanentAddress("15, Ibadan Lane")
-					.setPresentAddress("15, Ibadan Lane")
-					.setPostalCode("140271"));
+			if (user3 == null) {
+				userRepo.save(new User()
+						.setEmail("abdullahi.ibrahim5@gmail.com")
+						.setPassword(passwordEncoder.encode("password123"))
+						.setRoles(Arrays.asList(userRole))
+						.setFirstName("Abdullahi").setLastName("Ibrahim")
+						.setCountry("Nigeria")
+						.setCity("Port Harcourt")
+						.setPhoneNumber("08198456723")
+						.setUsername("abdullahiibrahim5")
+						.setPermanentAddress("32, Port Harcourt Street")
+						.setPresentAddress("32, Port Harcourt Street")
+						.setPostalCode("440271"));
+			}
 
-			userRepo.save(new User()
-					.setEmail("abdullahi.ibrahim5@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(user))
-					.setFirstName("Abdullahi").setLastName("Ibrahim")
-					.setCountry("Nigeria")
-					.setCity("Port Harcourt")
-					.setPhoneNumber("08198456723")
-					.setUsername("abdullahiibrahim5")
-					.setPermanentAddress("32, Port Harcourt Street")
-					.setPresentAddress("32, Port Harcourt Street")
-					.setPostalCode("440271"));
+			User user4 = userRepo.findByEmail("folake.adeleke6@gmail.com");
 
-			userRepo.save(new User()
-					.setEmail("folake.adeleke6@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(user))
-					.setFirstName("Folake").setLastName("Adeleke")
-					.setCountry("Nigeria")
-					.setCity("Enugu")
-					.setPhoneNumber("08198456723")
-					.setUsername("folakeadeleke6")
-					.setPermanentAddress("18, Enugu Avenue")
-					.setPresentAddress("18, Enugu Avenue")
-					.setPostalCode("540271"));
+			if (user4 == null) {
+				user4 = userRepo.save(new User()
+						.setEmail("folake.adeleke6@gmail.com")
+						.setPassword(passwordEncoder.encode("password123"))
+						.setRoles(Arrays.asList(userRole))
+						.setFirstName("Folake").setLastName("Adeleke")
+						.setCountry("Nigeria")
+						.setCity("Enugu")
+						.setPhoneNumber("08198456723")
+						.setUsername("folakeadeleke6")
+						.setPermanentAddress("18, Enugu Avenue")
+						.setPresentAddress("18, Enugu Avenue")
+						.setPostalCode("540271"));
+			}
 
-			userRepo.save(new User()
-					.setEmail("yusuf.okonkwo7@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(user))
-					.setFirstName("Yusuf").setLastName("Okonkwo")
-					.setCountry("Nigeria")
-					.setCity("Kaduna")
-					.setPhoneNumber("08198456723")
-					.setUsername("yusufokonkwo7")
-					.setPermanentAddress("29, Kaduna Lane")
-					.setPresentAddress("29, Kaduna Lane")
-					.setPostalCode("640271"));
+			User user5 = userRepo.findByEmail("yusuf.okonkwo7@gmail.com");
+			if (user5 == null) {
+				userRepo.save(new User()
+						.setEmail("yusuf.okonkwo7@gmail.com")
+						.setPassword(passwordEncoder.encode("password123"))
+						.setRoles(Arrays.asList(userRole))
+						.setFirstName("Yusuf").setLastName("Okonkwo")
+						.setCountry("Nigeria")
+						.setCity("Kaduna")
+						.setPhoneNumber("08198456723")
+						.setUsername("yusufokonkwo7")
+						.setPermanentAddress("29, Kaduna Lane")
+						.setPresentAddress("29, Kaduna Lane")
+						.setPostalCode("640271"));
+			}
 
-			userRepo.save(new User()
-					.setEmail("chinyere.ogundele8@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(user))
-					.setFirstName("Chinyere").setLastName("Ogundele")
-					.setCountry("Nigeria")
-					.setCity("Calabar")
-					.setPhoneNumber("08198456723")
-					.setUsername("chinyereogundele8")
-					.setPermanentAddress("5, Calabar Street")
-					.setPresentAddress("5, Calabar Street")
-					.setPostalCode("740271"));
+			User user6 = userRepo.findByEmail("adebayo.abubakar9@gmail.com");
+			if (user6 == null) {
+				userRepo.save(new User()
+						.setEmail("adebayo.abubakar9@gmail.com")
+						.setPassword(passwordEncoder.encode("password123"))
+						.setRoles(Arrays.asList(userRole))
+						.setFirstName("Adebayo").setLastName("Abubakar")
+						.setCountry("Nigeria")
+						.setCity("Benin City")
+						.setPhoneNumber("08198456723")
+						.setUsername("adebayoabubakar9")
+						.setPermanentAddress("12, Benin City Road")
+						.setPresentAddress("12, Benin City Road")
+						.setPostalCode("850271"));
+			}
 
-			userRepo.save(new User()
-					.setEmail("adebayo.abubakar9@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(user))
-					.setFirstName("Adebayo").setLastName("Abubakar")
-					.setCountry("Nigeria")
-					.setCity("Benin City")
-					.setPhoneNumber("08198456723")
-					.setUsername("adebayoabubakar9")
-					.setPermanentAddress("12, Benin City Road")
-					.setPresentAddress("12, Benin City Road")
-					.setPostalCode("850271"));
+			User user7 = userRepo.findByEmail("zainab.olawale10@gmail.com");
+			if (user7 == null) {
+				userRepo.save(new User()
+						.setEmail("zainab.olawale10@gmail.com")
+						.setPassword(passwordEncoder.encode("password123"))
+						.setRoles(Arrays.asList(userRole))
+						.setFirstName("Zainab").setLastName("Olawale")
+						.setCountry("Nigeria")
+						.setCity("Jos")
+						.setPhoneNumber("08198456723")
+						.setUsername("zainabolawale10")
+						.setPermanentAddress("8, Jos Lane")
+						.setPresentAddress("8, Jos Lane")
+						.setPostalCode("340234"));
+			}
 
-			userRepo.save(new User()
-					.setEmail("zainab.olawale10@gmail.com")
-					.setPassword(passwordEncoder.encode("password123"))
-					.setRoles(Arrays.asList(user))
-					.setFirstName("Zainab").setLastName("Olawale")
-					.setCountry("Nigeria")
-					.setCity("Jos")
-					.setPhoneNumber("08198456723")
-					.setUsername("zainabolawale10")
-					.setPermanentAddress("8, Jos Lane")
-					.setPresentAddress("8, Jos Lane")
-					.setPostalCode("340234"));
+			boolean account1Exists = blockchainService.accountExists("3000000000");
+			if (!account1Exists) {
+				blockchainService.createAccount(user1.getId(), "3000000000", user1.getName(), 5000000);
+			}
+
+			boolean account2Exists = blockchainService.accountExists("3100000000");
+
+			if (!account2Exists) {
+				blockchainService.createAccount(user2.getId(), "3100000000", user2.getName(), 2000000);
+			}
+
+			boolean account3Exists = blockchainService.accountExists("3200000000");
+			if (!account3Exists) {
+				blockchainService.createAccount(user3.getId(), "3200000000", user3.getName(), 3000000);
+			}
 
 			try {
 				blockchainService.initLedger();

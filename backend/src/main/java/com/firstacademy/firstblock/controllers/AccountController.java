@@ -30,16 +30,16 @@ public class AccountController {
     private BlockchainService blockchainService;
 
     @GetMapping
-    public ResponseEntity<String> getUserAccounts() throws Exception {
+    public Response<?> getUserAccounts() throws Exception {
         var user = userService.getCurrentUser();
-        String response = blockchainService.readUserAccounts(user.getId());
-        return ResponseEntity.ok(response);
+        AccountDto[] response = blockchainService.readUserAccounts(user.getId());
+        return Response.ok().setPayload(response);
     }
 
     @GetMapping("/{accountNo}")
-    public ResponseEntity<String> getAccount(@PathVariable("accountNo") String accountNo) throws Exception {
-        String response = blockchainService.readAccount(accountNo);
-        return ResponseEntity.ok(response);
+    public Response<?> getAccount(@PathVariable("accountNo") String accountNo) throws Exception {
+        AccountDto response = blockchainService.readAccount(accountNo);
+        return Response.ok().setPayload(response);
 
     }
 
