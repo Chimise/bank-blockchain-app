@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.firstacademy.firstblock.dto.model.AccountDto;
 import com.firstacademy.firstblock.dto.request.CreateAccountRequest;
 import com.firstacademy.firstblock.dto.response.Response;
 import com.firstacademy.firstblock.service.BlockchainService;
@@ -53,7 +54,7 @@ public class AccountController {
 
         request.setInitialBalance(request.getInitialBalance() * 100);
 
-        String response = blockchainService.createAccount(request.getUserId(), request.getAccountNo(),
+        AccountDto response = blockchainService.createAccount(request.getUserId(), request.getAccountNo(),
                 request.getAccountName(), request.getInitialBalance());
 
         return Response.ok().setPayload(response);
