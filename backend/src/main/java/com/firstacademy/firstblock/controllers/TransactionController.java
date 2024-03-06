@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import java.util.UUID;
 
+import com.firstacademy.firstblock.dto.model.TransactionDto;
 import com.firstacademy.firstblock.dto.model.UserDto;
 import com.firstacademy.firstblock.dto.request.TransferRequest;
 import com.firstacademy.firstblock.dto.response.Response;
@@ -45,7 +46,7 @@ public class TransactionController {
         request.setAmount(request.getAmount() * 100).setUserId(user.getId()).setTransactionDate(currentDateIso())
                 .setTransactionId(UUID.randomUUID().toString());
 
-        String response = blockchainService.transferFunds(
+        TransactionDto response = blockchainService.transferFunds(
                 request.getUserId(),
                 request.getTransactionId(),
                 request.getSenderAccountNumber(),
@@ -58,9 +59,9 @@ public class TransactionController {
     }
 
     @GetMapping("/account/{accountNo}")
-    public ResponseEntity<String> getTransactionHistory(@PathVariable String accountNo) throws Exception {
-        String transactionHistory = blockchainService.readTransactionHistory(accountNo);
-        return ResponseEntity.ok(transactionHistory);
+    public Response<?> getTransactionHistory(@PathVariable String accountNo) throws Exception {
+        TransactionDto[] transactionHistory = blockchainService.readTransactionHistory(accountNo);
+        return Response.ok().setPayload(transactionHistory);
     }
 
     private String getErrorMessage(BindingResult bindingResult) {

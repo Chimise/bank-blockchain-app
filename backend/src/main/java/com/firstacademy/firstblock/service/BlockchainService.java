@@ -1,6 +1,7 @@
 package com.firstacademy.firstblock.service;
 
 import com.firstacademy.firstblock.dto.model.AccountDto;
+import com.firstacademy.firstblock.dto.model.TransactionDto;
 
 public interface BlockchainService {
 
@@ -14,17 +15,18 @@ public interface BlockchainService {
 
     boolean accountExists(String accNo) throws Exception;
 
-    void updateAccount(Long userId, String accNo, String name, String type, String status) throws Exception;
+    AccountDto updateAccount(Long userId, String accNo, String name, String type, String status) throws Exception;
 
-    String readAccount(String accNo) throws Exception;
+    AccountDto readAccount(String accNo) throws Exception;
 
-    String transferFunds(Long senderUserId, String transactionId, String senderAccNo, String recieverAccNo, int amount,
+    TransactionDto transferFunds(Long senderUserId, String transactionId, String senderAccNo, String recieverAccNo,
+            int amount,
             String narration, String timestamp) throws Exception;
 
-    String readTransaction(String transactionId) throws Exception;
+    TransactionDto readTransaction(String transactionId) throws Exception;
 
-    String readTransactionHistory(String accNo) throws Exception;
+    TransactionDto[] readTransactionHistory(String accNo) throws Exception;
 
-    String readUserAccounts(Long userId) throws Exception;
+    AccountDto[] readUserAccounts(Long userId) throws Exception;
 
 }

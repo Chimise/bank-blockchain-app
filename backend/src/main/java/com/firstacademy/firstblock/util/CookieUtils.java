@@ -36,10 +36,6 @@ public class CookieUtils {
         res.addCookie(cookie);
     }
 
-    public static void setHeaderToken(HttpServletResponse res) {
-
-    }
-
     public static String extractJwtToken(HttpServletRequest req, String cookieName) {
         String token = getCookieValue(req, cookieName);
         if (token == null) {
