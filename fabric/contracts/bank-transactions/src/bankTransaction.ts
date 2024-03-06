@@ -12,15 +12,19 @@ export class BankTransactionContract extends Contract {
 
     @Transaction()
     public async InitLedger(ctx: Context): Promise<void> {
-        const bankSavingAcc = new BankAccount(AllBankAccounts.CHARGES_ACCOUNT, 300000000, "Deposits");
+        const bankAccount = await ctx.stub.getState(AllBankAccounts.CHARGES_ACCOUNT);
+        if (!bankAccount || bankAccount?.length === 0) {
+            const bankSavingAcc = new BankAccount(AllBankAccounts.CHARGES_ACCOUNT, 300000000, "Deposits");
 
-        await ctx.stub.putState(bankSavingAcc.accNo, marshal(bankSavingAcc.toObject()));
+            await ctx.stub.putState(bankSavingAcc.accNo, marshal(bankSavingAcc.toObject()));
 
-        this.#logger(ctx).info("Initialized the bank saving account");
+            this.#logger(ctx).info("Initialized the bank saving account");
+        }
+
     }
 
     @Transaction()
-    public async CreateAccount(ctx: Context, userId: number, accNo: string, accountName: string, initialBalance: number): Promise<void> {
+    public async CreateAccount(ctx: Context, userId: number, accNo: string, accountName: string, initialBalance: number): Promise<string> {
         const acc = new Account(accNo, accountName, userId, initialBalance);
         const accExists = await this.AccountExists(ctx, acc.accNo)
         if (accExists) {
@@ -31,6 +35,7 @@ export class BankTransactionContract extends Contract {
         await ctx.stub.putState(acc.accNo, accBytes);
         await ctx.stub.setEvent("CreateAccount", accBytes);
         this.#logger(ctx).info(`Account ${acc.accNo} was created`);
+        return accBytes.toString();
     }
 
     @Transaction(false)
@@ -41,7 +46,7 @@ export class BankTransactionContract extends Contract {
     }
 
     @Transaction()
-    public async UpdateAccount(ctx: Context, userId: number, accNo: string, name?: string, type?: string, status?: string): Promise<void> {
+    public async UpdateAccount(ctx: Context, userId: number, accNo: string, name?: string, type?: string, status?: string): Promise<string> {
 
         if (arguments.length <= 1) {
             throw new Error("Update arguments is empty");
@@ -57,7 +62,9 @@ export class BankTransactionContract extends Contract {
         const updatedAccount = mergeObjects(account, updates);
         const updatedAccountBytes = marshal(updatedAccount);
 
-        return await ctx.stub.putState(accNo, updatedAccountBytes);
+        await ctx.stub.putState(accNo, updatedAccountBytes)
+
+        return updatedAccountBytes.toString();
     }
 
     @Transaction(false)
@@ -68,7 +75,7 @@ export class BankTransactionContract extends Contract {
     }
 
     @Transaction()
-    public async TransferFunds(ctx: Context, senderUserId: number, transactionId: string, senderAccNo: string, recieverAccNo: string, amount: number, narration: string, timestamp: string): Promise<void> {
+    public async TransferFunds(ctx: Context, senderUserId: number, transactionId: string, senderAccNo: string, recieverAccNo: string, amount: number, narration: string, timestamp: string): Promise<string> {
         const senderAcc = await this.#readAccount(ctx, senderAccNo);
         const recieverAcc = await this.#readAccount(ctx, recieverAccNo);
         const bankAccc = await this.#readBankAccount(ctx, AllBankAccounts.CHARGES_ACCOUNT);
@@ -139,6 +146,8 @@ export class BankTransactionContract extends Contract {
         }
 
         ctx.stub.setEvent('TransferFund', marshal(transaction.toObject()));
+
+        return JSON.stringify(transaction);
     }
 
 

@@ -1,6 +1,8 @@
 package com.firstacademy.firstblock.util;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateUtils {
@@ -33,6 +35,12 @@ public class DateUtils {
      */
     public static String formattedDate(Date date) {
         return date != null ? sdf.format(date) : todayStr();
+    }
+
+    public static String currentDateIso() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        return currentDate.format(formatter);
     }
 
 }

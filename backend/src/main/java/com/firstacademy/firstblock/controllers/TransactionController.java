@@ -1,7 +1,5 @@
 package com.firstacademy.firstblock.controllers;
 
-import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -13,40 +11,55 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.firstacademy.firstblock.dto.model.TransferRequest;
+import jakarta.validation.Valid;
+import java.util.UUID;
+
+import com.firstacademy.firstblock.dto.model.UserDto;
+import com.firstacademy.firstblock.dto.request.TransferRequest;
+import com.firstacademy.firstblock.dto.response.Response;
 import com.firstacademy.firstblock.service.BlockchainService;
+import com.firstacademy.firstblock.service.UserService;
+import static com.firstacademy.firstblock.util.DateUtils.currentDateIso;
 
 @RestController
-@RequestMapping("/api/transfers")
+@RequestMapping("/api/transactions")
 public class TransactionController {
 
     @Autowired
     private BlockchainService blockchainService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/transfer")
-    public ResponseEntity<String> transferFunds(
+    public Response<?> transferFunds(
             @RequestBody @Valid TransferRequest request,
             BindingResult bindingResult) throws Exception {
 
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(getErrorMessage(bindingResult));
+            return Response.badRequest().setErrors(getErrorMessage(bindingResult));
         }
 
+        UserDto user = userService.getCurrentUser();
+
+        request.setAmount(request.getAmount() * 100).setUserId(user.getId()).setTransactionDate(currentDateIso())
+                .setTransactionId(UUID.randomUUID().toString());
+
         String response = blockchainService.transferFunds(
-                request.getSenderUserId(),
+                request.getUserId(),
                 request.getTransactionId(),
                 request.getSenderAccountNumber(),
                 request.getReceiverAccountNumber(),
                 request.getAmount(),
                 request.getNarration(),
-                request.getTimestamp());
+                request.getTransactionDate());
 
-        return ResponseEntity.ok(response);
+        return Response.ok().setPayload(response);
     }
 
-    @GetMapping("/history/{accountNumber}")
-    public ResponseEntity<String> getTransactionHistory(@PathVariable String accountNumber) throws Exception {
-        String transactionHistory = blockchainService.readTransactionHistory(accountNumber);
+    @GetMapping("/account/{accountNo}")
+    public ResponseEntity<String> getTransactionHistory(@PathVariable String accountNo) throws Exception {
+        String transactionHistory = blockchainService.readTransactionHistory(accountNo);
         return ResponseEntity.ok(transactionHistory);
     }
 
@@ -58,4 +71,3 @@ public class TransactionController {
         return errorMessage.toString();
     }
 }
-

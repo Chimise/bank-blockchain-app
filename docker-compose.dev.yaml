@@ -37,6 +37,7 @@ services:
       - MYSQL_USER=bankingapp
       - MYSQL_PASSWORD=password$user1
       - SHOW_SQL=true
+      - PEER_ENDPOINT:host.docker.internal:7051
     volumes:
       - ./backend/src:/app/src
     depends_on:

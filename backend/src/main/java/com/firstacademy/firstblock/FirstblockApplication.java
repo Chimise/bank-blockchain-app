@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.firstacademy.firstblock.repository.RoleRepository;
 import com.firstacademy.firstblock.repository.UserRepository;
-
+import com.firstacademy.firstblock.service.BlockchainService;
 import com.firstacademy.firstblock.model.Role;
 import com.firstacademy.firstblock.model.User;
 import com.firstacademy.firstblock.model.UserRoles;
@@ -24,7 +24,7 @@ public class FirstblockApplication {
 
 	@Bean
 	public CommandLineRunner dataLoader(UserRepository userRepo, RoleRepository roleRepo,
-			PasswordEncoder passwordEncoder) {
+			PasswordEncoder passwordEncoder, BlockchainService blockchainService) {
 		return args -> {
 			roleRepo.deleteAll();
 
@@ -32,12 +32,13 @@ public class FirstblockApplication {
 			Role user = roleRepo.save(new Role().setRole(UserRoles.USER));
 
 			userRepo.deleteAll();
+
 			userRepo.save(new User()
 					.setEmail("chimisepro@gmail.com")
 					.setPassword(passwordEncoder.encode("password123"))
 					.setRoles(Arrays.asList(admin))
 					.setFirstName("Chisom").setLastName("Promise"))
-//					.setDateOfBirth("05.06.1996")
+					// .setDateOfBirth("05.06.1996")
 					.setCountry("Nigeria")
 					.setCity("Lagos")
 					.setPhoneNumber("08198456723")
@@ -162,6 +163,12 @@ public class FirstblockApplication {
 					.setPermanentAddress("8, Jos Lane")
 					.setPresentAddress("8, Jos Lane")
 					.setPostalCode("340234"));
+
+			try {
+				blockchainService.initLedger();
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
 		};
 	}
 }
