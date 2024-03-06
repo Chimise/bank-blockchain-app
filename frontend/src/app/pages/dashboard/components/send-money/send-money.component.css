@@ -11,7 +11,7 @@
 
   .payment-card:hover {
     border-color: rgba(208,18,45,1);
-    box-shadow: 0 0 15px 5px rgba(248, 192, 186, 1);
+    box-shadow: 0 0 8px 8px rgba(248, 192, 186, 1);
   }
   
 
