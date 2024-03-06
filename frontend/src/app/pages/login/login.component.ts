@@ -8,34 +8,54 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  FormBuilder,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
 
-  imports: [HeaderComponent, FooterComponent, ReactiveFormsModule],
+  imports: [HeaderComponent, FooterComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private authSubscription!: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {}
 
-  public loginForm!: FormGroup<{
-    email: FormControl<string | null>;
-    password: FormControl<string | null>;
-  }>;
+  loginForm: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.minLength(3)),
-    });
+    this.loginForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(3)]]
+    })
+
+
+    // this.loginForm = new FormGroup({
+    //   username: new FormControl('', [Validators.required]),
+    //   password: new FormControl('', Validators.minLength(3)),
+    // });
   }
+
+
+  onSubmit() {
+    if (this.loginForm.valid){
+      console.log('valid')
+
+    }
+  }
+
+  // public loginForm!: FormGroup<{
+  //   username: FormControl<string | null>;
+  //   password: FormControl<string | null>;
+  // }>;
+
+
 
   ngOnDestroy(): void {
     if (this.authSubscription) {
@@ -55,7 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const values = this.loginForm.value;
     console.log(values);
     this.authSubscription = this.authService
-      .login(values.email!, values.password!)
+      .login(values.username!, values.password!)
       .subscribe({
         next: (body) => {
           console.log(body);
