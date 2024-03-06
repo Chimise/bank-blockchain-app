@@ -18,55 +18,72 @@ import java.util.Collection;
 @Accessors(chain = true)
 @Entity
 @Table(name = "users", indexes = { @Index(name = "idx_user_email", columnList = "email", unique = true),
-        @Index(name = "idx_user_username", columnList = "username", unique = true) })
+                @Index(name = "idx_user_username", columnList = "username", unique = true) })
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "user_id")
-    private Long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.TABLE)
+        @Column(name = "user_id")
+        private Long id;
 
-    private String firstName;
+        private String firstName;
 
-    private String lastName;
+        private String lastName;
 
-    private String email;
+        private String email;
 
-    private String username;
+        private String username;
 
-    private String presentAddress;
+        private String presentAddress;
 
-    private String permanentAddress;
+        private String permanentAddress;
 
-    private String city;
+        private String city;
 
-    private String country;
+        private String country;
 
-    private Date dateOfBirth;
+        private Date dateOfBirth;
 
-    private String password;
+        private String password;
 
-    private String postalCode;
+        private String postalCode;
 
-    private String otp;
+        private String otp;
 
-    private Date otpExpirationDate;
+        private Date otpExpirationDate;
 
-    private boolean isSuspended = false;
+        private boolean isSuspended = false;
 
-    private Date lastLoggedIn;
+        private Date lastLoggedIn;
 
-    private boolean isActive = true;
+        private boolean isActive = true;
 
-    private String phoneNumber;
+        private String phoneNumber;
 
-    private Date createdAt;
+        private Date createdAt;
 
-    private Date updatedAt;
+        private Date updatedAt;
 
-    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+        @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
 
-    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "role_id") })
-    private Collection<Role> roles;
+        @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+                        @JoinColumn(name = "role_id") })
+        private Collection<Role> roles;
+
+        public String getName() {
+                if (firstName == null && lastName == null) {
+                        return "";
+                }
+
+                String name = "";
+                if (firstName != null) {
+                        name += firstName;
+                }
+
+                if (lastName != null) {
+                        name += " " + lastName;
+                }
+
+                return name;
+        }
 }

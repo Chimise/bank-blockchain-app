@@ -39,6 +39,7 @@ services:
       - SHOW_SQL=true
       - PEER_ENDPOINT:host.docker.internal:7051
     volumes:
+      - ./backend/src:/app/src
       - ./fabric/network/organizations/peerOrganizations/org1.example.com:/app/fabric/org1.example.com
     depends_on:
       mysql:
