@@ -1,4 +1,4 @@
-<div class="recent-transactions">
+<!-- <div class="recent-transactions">
     <h3 class="font-bold text-foreground">Recent Transactions</h3>
     <div class="table w-full">
       @for(transaction of transactions; track $index) {
@@ -16,5 +16,51 @@
           </div>
       }
     </div>
+  </div> -->
+
+
+
+  <div class="container mx-auto">
+    <!-- Search bar -->
+    <input type="text" class="w-1/2 p-2 border border-gray-300 rounded mb-4" placeholder="Search transactions..." #searchInput (input)="onSearchChange(searchInput.value)">
+    <!-- Transaction history table -->
+    <table class="w-full border-collapse">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 bg-gray-100 border-b border-gray-300 text-left">Account Type</th>
+          <th class="py-2 px-4 bg-gray-100 border-b border-gray-300 text-left">Transaction Date</th>
+          <th class="py-2 px-4 bg-gray-100 border-b border-gray-300 text-left">Transaction ID</th>
+          <th class="py-2 px-4 bg-gray-100 border-b border-gray-300 text-left">Narration</th>
+          <th class="py-2 px-4 bg-gray-100 border-b border-gray-300 text-left">Amount</th>
+          <th class="py-2 px-4 bg-gray-100 border-b border-gray-300 text-left">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of filteredTransactions">
+          <td class="py-2 px-4 border-b border-gray-300">{{ transaction.accountType }}</td>
+          <td class="py-2 px-4 border-b border-gray-300">{{ transaction.transactionDate }}</td>
+          <td class="py-2 px-4 border-b border-gray-300">{{ transaction.transactionId }}</td>
+          <td class="py-2 px-4 border-b border-gray-300">{{ transaction.narration }}</td>
+          <td class="py-2 px-4 border-b border-gray-300" [ngStyle]="{'color': transaction.amount > 0 ? 'green' : 'red'}">{{ transaction.amount > 0 ? '+' : '' }}{{ transaction.amount | currency:'₦':'symbol':'1.2-2':'en-NG' }}</td>
+          <td class="py-2 px-4 border-b border-gray-300">
+            <button class="text-blue-500" (click)="viewTransaction(transaction)">View</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Modal -->
+    <div class="fixed inset-0 flex items-center justify-center  bg-gray-800 bg-opacity-75" *ngIf="selectedTransaction">
+      <div class="bg-white p-4 rounded">
+        <h2 class="text-lg font-bold mb-2">Transaction Details</h2>
+        <p><strong>Account Type:</strong> {{ selectedTransaction.accountType }}</p>
+        <p><strong>Transaction Date:</strong> {{ selectedTransaction.transactionDate }}</p>
+        <p><strong>Transaction ID:</strong> {{ selectedTransaction.transactionId }}</p>
+        <p><strong>Narration:</strong> {{ selectedTransaction.narration }}</p>
+        <p><strong>Amount:</strong> {{ selectedTransaction.amount }}</p>
+        <button class="text-blue-500 mt-4" (click)="closeModal()">Close</button>
+      </div>
+    </div>
   </div>
+  
   

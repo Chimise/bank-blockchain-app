@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../../../models/responses';
+import { UserService } from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-account-header',
@@ -8,6 +10,22 @@ import { Component, Input } from '@angular/core';
   styleUrl: './account-header.component.css'
 })
 export class AccountHeaderComponent {
-  @Input()
-  firstName?: string;
+  user: User | undefined
+
+  constructor(private userService: UserService) { }
+
+  async OnInit(): Promise<void> {
+    try {
+      const isAuthenticated = await this.userService.getUser();
+
+      if (isAuthenticated) {
+        this.user = await this.userService.getUser();
+      } else {
+        console.log('User is not authenticated');
+
+      }
+    } catch (error) {
+      console.error('Error retrieving user:', error);
+    }
+  }
 }

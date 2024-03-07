@@ -1,9 +1,5 @@
 <div class="mb-4 flex justify-between">
   <div class="inline-block">
-    @if(firstName) {
-    <h3 class="font-bold text-foreground">👋 Hi {{firstName}}!</h3>
-    }@else {
-    <h3 class="font-bold text-foreground">Hi ...</h3>
-    }
+    <h3 class="font-bold text-foreground">👋 Hi {{ user?.email }}!</h3>
   </div>
 </div>

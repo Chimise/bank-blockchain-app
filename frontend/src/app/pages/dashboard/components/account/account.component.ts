@@ -12,7 +12,7 @@ import { User } from '../../../../models/responses';
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [AccountHeaderComponent, AccountInfoCardComponent, SendMoneyComponent, TransactionHistoryComponent, SendMoneyPopupComponent, NgIf, CommonModule, OtpPageComponent],
+  imports: [AccountHeaderComponent, AccountInfoCardComponent, SendMoneyComponent, SendMoneyPopupComponent, NgIf, CommonModule, OtpPageComponent, TransactionHistoryComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })
@@ -56,4 +56,9 @@ export class AccountComponent implements OnInit {
     this.showPopup = false;
     this.showNewModal = false;
   }
+
+  trackById(index: number, item: any): any {
+    return item.id; // Assuming 'id' is the unique identifier property of your data object
+  }
+
 }
