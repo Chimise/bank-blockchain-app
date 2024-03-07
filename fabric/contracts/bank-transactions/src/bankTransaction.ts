@@ -168,24 +168,44 @@ export class BankTransactionContract extends Contract {
     @Transaction(false)
     @Returns("string")
     public async ReadTransactionHistory(ctx: Context, accNo: string): Promise<string> {
-        const transactionIterator = await ctx.stub.getStateByPartialCompositeKey(DocType.Transaction, [accNo]);
+        // const transactionIterator = await ctx.stub.getStateByPartialCompositeKey(DocType.Transaction, [accNo]);
 
-        let result = await transactionIterator.next();
-        let results: BankTransaction[] = []
+        // let result = await transactionIterator.next();
+        // let results: BankTransaction[] = []
+        // while (!result.done) {
+        //     const transaction = BankTransaction.create(unmarshal<BankTransaction>(result.value.value));
+        //     if (transaction.from === accNo) {
+        //         transaction.setAccountType(TransactionType.Debit);
+        //     } else if (transaction.to === accNo) {
+        //         transaction.setAccountType(TransactionType.Credit);
+        //     }
+
+        //     results.push(transaction);
+        //     result = await transactionIterator.next();
+        // }
+
+        // await transactionIterator.close();
+        const rangeIterator = await ctx.stub.getStateByRange("", "");
+        let transactions: BankTransaction[] = [];
+        let result = await rangeIterator.next();
         while (!result.done) {
-            const transaction = BankTransaction.create(unmarshal<BankTransaction>(result.value.value));
-            if (transaction.from === accNo) {
-                transaction.setAccountType(TransactionType.Debit);
-            } else if (transaction.to === accNo) {
-                transaction.setAccountType(TransactionType.Credit);
+            const document = unmarshal<{ docType: DocType }>(result.value.value);
+            if (document.docType === DocType.Transaction) {
+                const transaction = BankTransaction.create(document);
+                this.#logger(ctx).info(transaction);
+
+                if (transaction.from === accNo || transaction.to === accNo) {
+                    const isDebit = transaction.from === accNo;
+                    transaction.setAccountType(isDebit ? TransactionType.Debit : TransactionType.Credit);
+                    transactions.push(transaction);
+                }
             }
 
-            results.push(transaction);
-            result = await transactionIterator.next();
+            result = await rangeIterator.next();
         }
 
-        await transactionIterator.close();
-        return toJSON(results);
+        await rangeIterator.close()
+        return JSON.stringify(transactions);
     }
 
     @Transaction(false)

@@ -14,7 +14,7 @@ export function assertValue<T>(value: T | undefined | null, message: string): T 
 }
 
 export function marshal(o: object): Buffer {
-    return Buffer.from(toJSON(o));
+    return Buffer.from(toJSON(o), "utf-8");
 }
 
 export function toJSON(o: object): string {
