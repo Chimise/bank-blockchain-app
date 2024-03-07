@@ -126,12 +126,17 @@ export class BankTransactionContract extends Contract {
         recieverAcc.setBalance(recieverAcc.bal + amount);
         bankAccc.addFund(charge);
 
-        try {
-            const key = await this.#generateTransactionKey(ctx, transactionId, senderAccNo, recieverAccNo, timestamp);
-            await ctx.stub.putState(key, marshal(transaction.toObject()));
+        const transactionBytes = marshal(transaction.toObject());
+        const chargeTransactionBytes = marshal(chargeTransaction.toObject());
 
-            const chargeKey = await this.#generateTransactionKey(ctx, chargeTransactionId, senderAccNo, AllBankAccounts.CHARGES_ACCOUNT, timestamp);
-            await ctx.stub.putState(chargeKey, marshal(chargeTransaction.toObject()));
+        try {
+            await ctx.stub.putState(transactionId, transactionBytes);
+            const indexKey = await this.#generateTransactionKey(ctx, transactionId, senderAccNo, recieverAccNo, timestamp);
+            await ctx.stub.putState(indexKey, Buffer.from("\u0000"));
+
+            await ctx.stub.putState(chargeTransactionId, chargeTransactionBytes);
+            const chargeIndexKey = await this.#generateTransactionKey(ctx, chargeTransactionId, senderAccNo, AllBankAccounts.CHARGES_ACCOUNT, timestamp);
+            await ctx.stub.putState(chargeIndexKey, Buffer.from("\u0000"));
         } catch (error) {
             throw new Error(`Transaction ${transactionId} couldn't complete`);
         }
@@ -145,55 +150,66 @@ export class BankTransactionContract extends Contract {
             throw new Error(`Transaction ${transactionId} couldn't complete`);
         }
 
-        ctx.stub.setEvent('TransferFund', marshal(transaction.toObject()));
+        ctx.stub.setEvent('TransferFund', transactionBytes);
 
-        return JSON.stringify(transaction);
+        return transactionBytes.toString();
     }
 
 
     @Transaction(false)
     @Returns("string")
     public async ReadTransaction(ctx: Context, transactionId: string): Promise<string> {
-        const transactionIterator = await ctx.stub.getStateByPartialCompositeKey(DocType.Transaction, [transactionId]);
-        const transactionResult = await transactionIterator.next();
-        if (!transactionResult.value?.value) {
-            throw new Error(`Transaction ${transactionId} does not exist`);
+        const transaction = await this.#readTransaction(ctx, transactionId);
+        return JSON.stringify(transaction);
+    }
+
+    @Transaction(false)
+    @Returns("string")
+    public async ReadTransactionHistoryWithIndex(ctx: Context, accNo: string): Promise<string> {
+        const transactionIndexIterator = await ctx.stub.getStateByPartialCompositeKey(DocType.Transaction, [accNo]);
+        let result = await transactionIndexIterator.next();
+        const transactions: BankTransaction[] = [];
+
+        while (!result.done) {
+            if (!result || !result.value || !result.value.key) {
+                result = await transactionIndexIterator.next();
+                continue;
+            }
+
+            const { objectType, attributes } = await ctx.stub.splitCompositeKey(result.value.key);
+            if (objectType !== DocType.Transaction) {
+                result = await transactionIndexIterator.next();
+                continue;
+            }
+
+            const transaction = await this.#readTransaction(ctx, attributes[0]);
+            if (transaction.from === accNo || transaction.to === accNo) {
+                const isDebit = transaction.from === accNo;
+                transaction.setAccountType(isDebit ? TransactionType.Debit : TransactionType.Credit);
+                transactions.push(transaction);
+            }
+
+            result = await transactionIndexIterator.next();
         }
 
-        await transactionIterator.close();
-
-        return transactionResult.value.value.toString();
+        return JSON.stringify(transactions);
     }
 
     @Transaction(false)
     @Returns("string")
     public async ReadTransactionHistory(ctx: Context, accNo: string): Promise<string> {
-        // const transactionIterator = await ctx.stub.getStateByPartialCompositeKey(DocType.Transaction, [accNo]);
-
-        // let result = await transactionIterator.next();
-        // let results: BankTransaction[] = []
-        // while (!result.done) {
-        //     const transaction = BankTransaction.create(unmarshal<BankTransaction>(result.value.value));
-        //     if (transaction.from === accNo) {
-        //         transaction.setAccountType(TransactionType.Debit);
-        //     } else if (transaction.to === accNo) {
-        //         transaction.setAccountType(TransactionType.Credit);
-        //     }
-
-        //     results.push(transaction);
-        //     result = await transactionIterator.next();
-        // }
-
-        // await transactionIterator.close();
         const rangeIterator = await ctx.stub.getStateByRange("", "");
         let transactions: BankTransaction[] = [];
         let result = await rangeIterator.next();
         while (!result.done) {
-            const document = unmarshal<{ docType: DocType }>(result.value.value);
-            if (document.docType === DocType.Transaction) {
-                const transaction = BankTransaction.create(document);
-                this.#logger(ctx).info(transaction);
+            if (result.value && result.value.value.toString() === Buffer.from("\u0000").toString()) {
+                result = await rangeIterator.next();
+                continue;
+            }
 
+            const document = unmarshal<{ docType: DocType }>(result.value.value);
+            if (document?.docType === DocType.Transaction) {
+                const transaction = BankTransaction.create(document);
                 if (transaction.from === accNo || transaction.to === accNo) {
                     const isDebit = transaction.from === accNo;
                     transaction.setAccountType(isDebit ? TransactionType.Debit : TransactionType.Credit);
@@ -215,6 +231,11 @@ export class BankTransactionContract extends Contract {
         const accounts: Account[] = [];
         let result = await iterator.next();
         while (!result.done) {
+            if (result.value && result.value.value.toString() === Buffer.from("\u0000").toString()) {
+                result = await iterator.next();
+                continue;
+            }
+
             const document = unmarshal<{ docType: DocType }>(result.value.value);
             if (document.docType === DocType.Account) {
                 const account = Account.create(document);
@@ -283,6 +304,15 @@ export class BankTransactionContract extends Contract {
 
         return BankAccount.create(unmarshal<BankAccount>(bankAccBytes));
 
+    }
+
+    async #readTransaction(ctx: Context, transactionId: string) {
+        const transactionBytes = await ctx.stub.getState(transactionId);
+        if (!transactionBytes || transactionBytes.length === 0) {
+            throw new Error(`Transaction ${transactionId} has not been created`);
+        }
+
+        return BankTransaction.create(unmarshal<BankTransaction>(transactionBytes));
     }
 
     #generateChargeTransactionId(transactionId: string) {
