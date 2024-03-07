@@ -8,7 +8,7 @@ import { Response, User } from '../../models/responses';
   providedIn: 'root'
 })
 export class UserService {
-  
+
 
   constructor(
     private authService: AuthService,
@@ -19,11 +19,11 @@ export class UserService {
     return new Promise((res, rej) => {
       let user = this.authService.getUser();
 
-      if(user) {
+      if (user) {
         return res(user);
       }
-    
-      this.httpClient.get<Response<User>>("/api/profile", {
+
+      this.httpClient.get<Response<User>>(resolve("/api/profile"), {
         headers: this.authService.getHeaders()
       }).subscribe({
         next(response) {
@@ -35,8 +35,8 @@ export class UserService {
         }
       })
     }
-  )
-    
-    
+    )
+
+
   }
 }

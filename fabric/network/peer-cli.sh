@@ -36,7 +36,7 @@ peer chaincode query -C mainchannel -n bank-transactions -c '{"Args":["AccountEx
 
 peer chaincode query -C mainchannel -n bank-transactions -c '{"Args":["ReadTransaction","T-101"]}'
 
-peer chaincode query -C mainchannel -n bank-transactions -c '{"Args":["ReadTransactionHistory","T-101"]}'
+peer chaincode query -C mainchannel -n bank-transactions -c '{"Args":["ReadTransactionHistory","3090351602"]}'
 peer chaincode query -C mainchannel -n bank-transactions -c '{"Args":["ReadUserAccounts","200"]}'
 
 peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mainchannel -n bank-transactions -c '{"Args":["CreateAccount","200","3090351603","Nnakude Chisom","5000000"]}'

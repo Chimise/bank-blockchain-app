@@ -12,7 +12,7 @@ import { UserService } from '../../../../services/user/user.service';
 export class AccountHeaderComponent {
   user: User | undefined
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   async OnInit(): Promise<void> {
     try {
@@ -22,7 +22,7 @@ export class AccountHeaderComponent {
         this.user = await this.userService.getUser();
       } else {
         console.log('User is not authenticated');
-        
+
       }
     } catch (error) {
       console.error('Error retrieving user:', error);
