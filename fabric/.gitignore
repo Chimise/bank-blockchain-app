@@ -34,7 +34,6 @@ install-fabric.sh
 full-stack-asset-transfer-guide/
 
 # Ignore test folders
-test-network/
 asset-transfer-basic/
 
 
