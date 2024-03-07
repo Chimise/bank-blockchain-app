@@ -16,7 +16,7 @@
 
 <div class="account mx-auto px-4 py-4 sm:px-8 lg:container" [class.blur-effect]="showPopup || showNewModal">
     <app-account-header></app-account-header>
-    <div class="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4">
+    <div class="flex flex-col sm:flex-row justify-between sm:justify-end space-y-4 sm:space-y-0 sm:space-x-4">
         <ng-container *ngFor="let data of info; trackBy: trackById">
             <app-account-info-card [title]="data.title" [description]="data.description" [src]="data.src" [svgBgColor]="data.svgBgColor" [hoverBorderColor]="data.hoverBorderColor" [hoverShadowColor]="data.hoverShadowColor"></app-account-info-card>
         </ng-container>
